@@ -150,6 +150,28 @@ header h1 {
 }
 
   </style>
+       <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari perintah atau deskripsi... (contoh: git, wifi, sql)" onkeyup="searchCommand()">
+        </div>
+    
+
+
+
+    <script>
+        function searchCommand() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].innerText.toLowerCase();
+                if (text.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
     <div class="container">
         <div class="card">
             <div class="badge">#1</div>
