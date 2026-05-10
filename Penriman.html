@@ -1,0 +1,3970 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termux Command Central</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari perintah atau deskripsi... (contoh: git, wifi, sql)" onkeyup="searchCommand()">
+        </div>
+</header>
+  
+    
+    
+    <div class="header">
+        <h1>TERMUX</h1>
+        <h1>COMMAND</h1>
+        <h1>CENTRAL</h1>
+        <p>[ SYSTEM ANALYSIS: 100 COMMAND MODULES LOADED ]</p>
+    </div>
+<style>
+  /* Base Style */
+:root {
+    --neon-blue: #00d4ff;
+    --neon-green: #00ff41;
+    --dark-bg: #0d0f14;
+    --card-bg: rgba(255, 255, 255, 0.03);
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: sticky;
+    top: 0;
+    background: var(--dark-bg);
+    z-index: 100;
+    padding: 20px 0;
+}
+
+header h1 {
+    color: var(--neon-blue);
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* Search Bar */
+.search-container {
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: 2px solid var(--neon-blue);
+    background: #1a1d24;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    transition: 0.3s;
+}
+
+#searchInput:focus {
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+}
+
+/* Grid Layout */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card Design */
+.card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+    transition: 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: scale(1.03);
+    border-color: var(--neon-blue);
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(45deg, var(--neon-blue), #0055ff);
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-bottom-left-radius: 15px;
+}
+
+.command {
+    font-family: 'Courier New', monospace;
+    background: #000;
+    color: var(--neon-green);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.command span {
+    color: #ff0055;
+    margin-right: 5px;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+    margin: 15px 0;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #b0b0b0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+  </style>
+    <div class="container">
+        <div class="card">
+            <div class="badge">#1</div>
+            <div class="command"><span>$</span>pkg update</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbarui daftar paket yang tersedia.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#2</div>
+            <div class="command"><span>$</span>pkg upgrade</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbarui semua paket yang terinstal ke versi terbaru.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#3</div>
+            <div class="command"><span>$</span>ls</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar file dan folder di direktori saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#4</div>
+            <div class="command"><span>$</span>cd</div>
+            <div class="divider"></div>
+            <div class="description">
+                Berpindah dari satu direktori ke direktori lain.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#5</div>
+            <div class="command"><span>$</span>pwd</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan path direktori kerja saat ini.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<style>
+  /* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: #050a05; /* Hitam sangat pekat */
+    background-image: linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+    background-size: 100% 3px; /* Efek garis scanline TV lama */
+    color: #00ff41;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px #00ff41;
+    margin: 5px 0;
+}
+
+.header p {
+    font-size: 0.9rem;
+    margin-top: 15px;
+    color: #00ff41;
+    opacity: 0.8;
+}
+
+/* Container Kartu */
+.container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.card {
+    background: rgba(0, 255, 65, 0.05);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    position: relative;
+    box-shadow: inset 0 0 15px rgba(0, 255, 65, 0.05);
+}
+
+/* Badge Nomor (#1, #2, dst) */
+.badge {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    background: #00ff41;
+    color: #000;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    box-shadow: 0 0 10px #00ff41;
+}
+
+/* Teks Perintah */
+.command {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.command span {
+    color: #00ff41;
+    margin-right: 10px;
+}
+
+/* Garis Pembatas */
+.divider {
+    height: 1px;
+    background: rgba(0, 255, 65, 0.3);
+    margin: 15px 0;
+}
+
+/* Penjelasan */
+.description {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #c0c0c0;
+}
+  </style>
+        <div class="card">
+            <div class="badge">#6</div>
+            <div class="command"><span>$</span>rm -rf [nama_folder]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus file atau folder secara paksa dan permanen.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#7</div>
+            <div class="command"><span>$</span>termux-setup-storage</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memberikan izin Termux untuk mengakses file di memori internal HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#8</div>
+            <div class="command"><span>$</span>git clone [url_github]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengunduh script atau project dari GitHub ke dalam Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#9</div>
+            <div class="command"><span>$</span>chmod +x [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah izin file agar bisa dieksekusi (dijalankan).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#10</div>
+            <div class="command"><span>$</span>python [nama_file.py]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan program atau script yang berbasis bahasa Python.
+            </div>
+        </div>
+
+<style>
+/* Tambahkan ini di bagian .card pada style.css */
+.card {
+    /* ... kode yang lama ... */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 255, 65, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+  
+</style>
+
+         <div class="card">
+            <div class="badge">#11</div>
+            <div class="command"><span>$</span>mkdir [nama_folder]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat direktori atau folder baru di lokasi saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#12</div>
+            <div class="command"><span>$</span>cp [file_asal] [tujuan]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyalin file atau folder ke lokasi lain.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#13</div>
+            <div class="command"><span>$</span>mv [file_lama] [nama_baru]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memindahkan file atau mengubah nama (rename) file/folder.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#14</div>
+            <div class="command"><span>$</span>nano [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka text editor di dalam terminal untuk mengedit script.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#15</div>
+            <div class="command"><span>$</span>cat [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat isi teks dari sebuah file tanpa harus mengeditnya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#16</div>
+            <div class="command"><span>$</span>clear</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membersihkan layar terminal agar terlihat rapi kembali.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#17</div>
+            <div class="command"><span>$</span>top</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan proses sistem yang sedang berjalan (seperti Task Manager).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#18</div>
+            <div class="command"><span>$</span>ifconfig</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat alamat IP dan informasi detail jaringan internet Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#19</div>
+            <div class="command"><span>$</span>ping [alamat_web]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek koneksi internet dan respon dari server tujuan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#20</div>
+            <div class="command"><span>$</span>exit</div>
+            <div class="divider"></div>
+            <div class="description">
+                Keluar dari sesi terminal atau menutup aplikasi Termux.
+            </div>
+        </div>
+        <div class="card">
+            <div class="badge">#21</div>
+            <div class="command"><span>$</span>pkg list-installed</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar semua paket atau software yang sudah terinstal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#22</div>
+            <div class="command"><span>$</span>pkg uninstall [nama_paket]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus paket atau software yang sudah tidak diperlukan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#23</div>
+            <div class="command"><span>$</span>history</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar perintah yang pernah Anda ketik sebelumnya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#24</div>
+            <div class="command"><span>$</span>unzip [nama_file.zip]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengekstrak file yang dikompresi dalam format .zip.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#25</div>
+            <div class="command"><span>$</span>zip -r [nama_baru.zip] [folder]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengompresi folder menjadi sebuah file .zip.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#26</div>
+            <div class="command"><span>$</span>whoami</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan nama user yang sedang aktif digunakan saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#27</div>
+            <div class="command"><span>$</span>curl -O [url_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengunduh file langsung dari internet melalui link URL.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#28</div>
+            <div class="command"><span>$</span>find . -name "[nama_file]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari lokasi file tertentu di dalam direktori aktif.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#29</div>
+            <div class="command"><span>$</span>df -h</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat sisa ruang penyimpanan (disk space) di sistem Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#30</div>
+            <div class="command"><span>$</span>termux-vibrate</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan perintah untuk menggetarkan HP (membutuhkan termux-api).
+            </div>
+        </div>
+
+          <div class="card">
+            <div class="badge">#31</div>
+            <div class="command"><span>$</span>grep "[teks]" [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari kata atau pola teks spesifik di dalam sebuah file.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#32</div>
+            <div class="command"><span>$</span>uname -a</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi lengkap kernel dan arsitektur sistem.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#33</div>
+            <div class="command"><span>$</span>du -sh [nama_folder]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek total ukuran (kapasitas) sebuah folder secara ringkas.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#34</div>
+            <div class="command"><span>$</span>head -n 10 [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan 10 baris pertama dari sebuah isi file.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#35</div>
+            <div class="command"><span>$</span>tail -n 10 [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan 10 baris terakhir dari sebuah isi file.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#36</div>
+            <div class="command"><span>$</span>wc -w [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghitung jumlah kata yang ada di dalam sebuah file.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#37</div>
+            <div class="command"><span>$</span>tar -cvzf [nama.tar.gz] [folder]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengompres folder ke dalam format tar.gz (sering digunakan di Linux).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#38</div>
+            <div class="command"><span>$</span>alias [nama]="[perintah]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat nama samaran (shortcut) untuk perintah yang panjang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#39</div>
+            <div class="command"><span>$</span>date</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi hari, tanggal, dan waktu saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#40</div>
+            <div class="command"><span>$</span>termux-reload-settings</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbarui pengaturan Termux setelah mengubah file konfigurasi.
+            </div>
+        </div>
+
+
+              <div class="card">
+            <div class="badge">#41</div>
+            <div class="command"><span>$</span>netstat</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan status koneksi jaringan dan port yang sedang terbuka.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#42</div>
+            <div class="command"><span>$</span>pkg search [nama_paket]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari paket atau software yang tersedia di repository Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#43</div>
+            <div class="command"><span>$</span>neofetch</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi sistem dan logo OS dalam bentuk teks ASCII.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#44</div>
+            <div class="command"><span>$</span>ps aux</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat semua daftar proses yang berjalan secara mendetail.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#45</div>
+            <div class="command"><span>$</span>kill -9 [PID]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghentikan paksa sebuah proses menggunakan ID prosesnya (PID).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#46</div>
+            <div class="command"><span>$</span>termux-battery-status</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek status baterai, suhu, dan persentase daya HP via terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#47</div>
+            <div class="command"><span>$</span>chown [user]:[group] [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah kepemilikan user dan grup pada sebuah file atau folder.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#48</div>
+            <div class="command"><span>$</span>wget [url]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool baris perintah untuk mengunduh konten dari web secara stabil.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#49</div>
+            <div class="command"><span>$</span>htop</div>
+            <div class="divider"></div>
+            <div class="description">
+                Task manager interaktif dengan tampilan yang lebih berwarna dan rapi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#50</div>
+            <div class="command"><span>$</span>history -c</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus semua riwayat perintah yang pernah diketik (bersih-bersih).
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#51</div>
+            <div class="command"><span>$</span>npm install [nama_paket]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal library atau modul Node.js untuk keperluan project web.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#52</div>
+            <div class="command"><span>$</span>node -v</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek versi Node.js yang terpasang di sistem Termux Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#53</div>
+            <div class="command"><span>$</span>pip install --upgrade pip</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbarui pengelola paket Python (Pip) ke versi terbaru.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#54</div>
+            <div class="command"><span>$</span>ssh [user]@[ip_address]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan remote login ke server lain secara aman melalui protokol SSH.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#55</div>
+            <div class="command"><span>$</span>scp [file] [user]@[ip]:[path]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengirim file dari HP ke server remote menggunakan jalur SSH.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#56</div>
+            <div class="command"><span>$</span>lscpu</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi detail mengenai arsitektur CPU ponsel Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#57</div>
+            <div class="command"><span>$</span>termux-open [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka file tertentu menggunakan aplikasi eksternal di Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#58</div>
+            <div class="command"><span>$</span>pkg autoclean</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus file installer paket (.deb) yang sudah tidak diperlukan lagi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#59</div>
+            <div class="command"><span>$</span>termux-clipboard-set [teks]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyalin teks dari terminal langsung ke clipboard (copy) Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#60</div>
+            <div class="command"><span>$</span>termux-clipboard-get</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil atau menampilkan teks yang ada di clipboard (paste) ke terminal.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#61</div>
+            <div class="command"><span>$</span>mariadb</div>
+            <div class="divider"></div>
+            <div class="description">
+                Masuk ke sistem manajemen database MySQL/MariaDB di Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#62</div>
+            <div class="command"><span>$</span>redis-server</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan server Redis untuk keperluan database in-memory.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#63</div>
+            <div class="command"><span>$</span>termux-wake-lock</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencegah CPU HP "tidur" agar proses di Termux tetap berjalan saat layar mati.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#64</div>
+            <div class="command"><span>$</span>termux-wake-unlock</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melepaskan fitur wake-lock agar HP bisa kembali ke mode hemat daya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#65</div>
+            <div class="command"><span>$</span>sed -i 's/lama/baru/g' [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengganti semua kata tertentu di dalam file secara otomatis lewat terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#66</div>
+            <div class="command"><span>$</span>nmap [target_ip]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan scanning port dan audit keamanan pada jaringan target.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#67</div>
+            <div class="command"><span>$</span>termux-telephony-deviceinfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi teknis tentang perangkat telepon dan jaringan seluler.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#68</div>
+            <div class="command"><span>$</span>git pull</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil pembaruan terbaru dari repository GitHub yang sudah di-clone.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#69</div>
+            <div class="command"><span>$</span>du -h --max-depth=1</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat rincian ukuran setiap folder di direktori saat ini secara rapi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#70</div>
+            <div class="command"><span>$</span>termux-toast [pesan]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan pesan notifikasi kecil (toast) yang muncul di layar HP.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#71</div>
+            <div class="command"><span>$</span>jobs</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar tugas (proses) yang sedang berjalan di latar belakang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#72</div>
+            <div class="command"><span>$</span>fg %[nomor_job]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengembalikan proses latar belakang ke tampilan utama (foreground).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#73</div>
+            <div class="command"><span>$</span>bg %[nomor_job]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melanjutkan proses yang terhenti agar berjalan di latar belakang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#74</div>
+            <div class="command"><span>$</span>termux-vibrate -d 500</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menggetarkan perangkat HP dengan durasi waktu tertentu (milidetik).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#75</div>
+            <div class="command"><span>$</span>diff [file1] [file2]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membandingkan isi dua file untuk melihat perbedaan teks di dalamnya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#76</div>
+            <div class="command"><span>$</span>termux-contact-list</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar kontak telepon langsung di dalam terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#77</div>
+            <div class="command"><span>$</span>termux-sms-list</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membaca pesan masuk (SMS) yang ada di kotak masuk ponsel Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#78</div>
+            <div class="command"><span>$</span>ln -s [target] [link]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat shortcut atau simbolik link untuk file/folder tertentu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#79</div>
+            <div class="command"><span>$</span>termux-brightness [0-255]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengatur tingkat kecerahan layar HP secara langsung lewat terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#80</div>
+            <div class="command"><span>$</span>termux-camera-photo [file.jpg]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil foto menggunakan kamera HP dan menyimpannya sebagai file.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#81</div>
+            <div class="command"><span>$</span>termux-volume [stream] [volume]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah volume suara HP (media, alarm, atau ringtone) via terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#82</div>
+            <div class="command"><span>$</span>termux-torch on/off</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghidupkan atau mematikan lampu senter (flash) pada perangkat HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#83</div>
+            <div class="command"><span>$</span>termux-wifi-connectioninfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat detail informasi jaringan WiFi yang sedang terhubung.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#84</div>
+            <div class="command"><span>$</span>termux-location</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendapatkan koordinat GPS (latitude & longitude) lokasi saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#85</div>
+            <div class="command"><span>$</span>termux-tts-speak "[teks]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah teks menjadi suara (Text-to-Speech) menggunakan speaker HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#86</div>
+            <div class="command"><span>$</span>ls -la</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan semua file termasuk file tersembunyi (hidden files).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#87</div>
+            <div class="command"><span>$</span>pkg install x11-repo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menambahkan repository grafis untuk menjalankan aplikasi berbasis GUI.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#88</div>
+            <div class="command"><span>$</span>termux-notification -c "[isi]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat notifikasi khusus yang muncul di bilah status Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#89</div>
+            <div class="command"><span>$</span>shred -u [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus file secara permanen sehingga sangat sulit untuk dipulihkan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#90</div>
+            <div class="command"><span>$</span>termux-wallpaper -f [path_gambar]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengganti wallpaper layar utama HP langsung melalui perintah Termux.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#91</div>
+            <div class="command"><span>$</span>termux-info</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi teknis lengkap tentang aplikasi Termux yang terinstal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#92</div>
+            <div class="command"><span>$</span>pkg upgrade -y</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan upgrade semua paket secara otomatis tanpa konfirmasi ulang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#93</div>
+            <div class="command"><span>$</span>printenv</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar variabel lingkungan (environment variables) yang aktif.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#94</div>
+            <div class="command"><span>$</span>termux-fingerprint</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menggunakan sensor sidik jari HP untuk verifikasi keamanan di terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#95</div>
+            <div class="command"><span>$</span>termux-calllog</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar riwayat panggilan telepon di perangkat Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#96</div>
+            <div class="command"><span>$</span>nc -l [port]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka koneksi (listening) pada port tertentu untuk transfer data.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#97</div>
+            <div class="command"><span>$</span>termux-vibrate -f</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghentikan semua getaran yang sedang berjalan secara paksa.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#98</div>
+            <div class="command"><span>$</span>termux-dialog confirm -t "[judul]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memunculkan kotak dialog konfirmasi (Yes/No) di layar Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#99</div>
+            <div class="command"><span>$</span>termux-dialog text -t "[judul]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memunculkan input teks melayang untuk memasukkan data via Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#100</div>
+            <div class="command"><span>$</span>termux-setup-package-manager</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengonfigurasi ulang pengelola paket jika terjadi error pada repository.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#101</div>
+            <div class="command"><span>$</span>whois [domain.com]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat informasi kepemilikan dan detail registrasi sebuah domain web.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#102</div>
+            <div class="command"><span>$</span>dig [domain.com]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan query DNS untuk melihat catatan (records) sebuah website.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#103</div>
+            <div class="command"><span>$</span>termux-job-scheduler</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjadwalkan script agar berjalan otomatis pada waktu tertentu atau saat HP di-charge.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#104</div>
+            <div class="command"><span>$</span>openssl genrsa -out key.pem</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat kunci enkripsi RSA untuk keamanan data atau server.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#105</div>
+            <div class="command"><span>$</span>crontab -e</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengatur jadwal tugas otomatis (cron job) yang berjalan secara periodik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#106</div>
+            <div class="command"><span>$</span>termux-media-player play [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memutar file musik atau audio langsung dari latar belakang terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#107</div>
+            <div class="command"><span>$</span>termux-media-player stop</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghentikan pemutaran musik yang sedang berjalan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#108</div>
+            <div class="command"><span>$</span>watch -n 1 [perintah]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan perintah secara berulang setiap beberapa detik (monitoring).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#109</div>
+            <div class="command"><span>$</span>termux-sensor -l</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar semua sensor yang tersedia di ponsel Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#110</div>
+            <div class="command"><span>$</span>termux-sensor -n 1 -s [nama_sensor]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membaca data *real-time* dari sensor tertentu (seperti Accelerometer).
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#111</div>
+            <div class="command"><span>$</span>mongod</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan database MongoDB (NoSQL) untuk penyimpanan data JSON.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#112</div>
+            <div class="command"><span>$</span>termux-speech-to-text</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah suara dari mikrofon menjadi teks di terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#113</div>
+            <div class="command"><span>$</span>ffmpeg -i [input.mp4] [output.gif]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengonversi file video menjadi format GIF langsung dari terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#114</div>
+            <div class="command"><span>$</span>termux-vibrate -p 100,200,300</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat pola getaran kustom pada perangkat HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#115</div>
+            <div class="command"><span>$</span>tmux</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan terminal multiplexer untuk membagi layar menjadi beberapa panel.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#116</div>
+            <div class="command"><span>$</span>termux-chroot</div>
+            <div class="divider"></div>
+            <div class="description">
+                Berpindah ke lingkungan root palsu (PRoot) untuk menjalankan tool tertentu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#117</div>
+            <div class="command"><span>$</span>termux-tts-engines</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar mesin suara (TTS) yang tersedia di sistem Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#118</div>
+            <div class="command"><span>$</span>proot-distro list</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar distro Linux (Ubuntu, Kali, Debian) yang bisa diinstal di Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#119</div>
+            <div class="command"><span>$</span>termux-fix-shebang [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbaiki path script agar bisa berjalan di Termux (sering untuk script Python/Bash).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#120</div>
+            <div class="command"><span>$</span>termux-download [url]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengunduh file dan menampilkan progresnya di notifikasi bar Android.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#121</div>
+            <div class="command"><span>$</span>ssh-keygen</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat pasangan kunci SSH (public/private) untuk autentikasi aman.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#122</div>
+            <div class="command"><span>$</span>termux-usb -l</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar perangkat USB yang terhubung ke ponsel (lewat OTG).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#123</div>
+            <div class="command"><span>$</span>termux-infrared-frequencies</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat frekuensi infra merah yang didukung (jika HP memiliki IR Blaster).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge #124">#124</div>
+            <div class="command"><span>$</span>termux-infrared-transmit</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengirim sinyal infra merah (bisa digunakan untuk remote TV via Termux).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#125</div>
+            <div class="command"><span>$</span>termux-call-log -l 5</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan 5 daftar panggilan telepon terakhir di perangkat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#126</div>
+            <div class="command"><span>$</span>termux-microphone-record -d 10</div>
+            <div class="divider"></div>
+            <div class="description">
+                Merekam suara menggunakan mikrofon HP dengan durasi 10 detik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#127</div>
+            <div class="command"><span>$</span>termux-microphone-record -q</div>
+            <div class="divider"></div>
+            <div class="description">
+                Berhenti merekam suara yang sedang berjalan secara paksa.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#128</div>
+            <div class="command"><span>$</span>termux-storage-get [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil file dari penyimpanan internal melalui sistem pemilih file Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#129</div>
+            <div class="command"><span>$</span>pkg list-all</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan seluruh paket yang tersedia di repository resmi Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#130</div>
+            <div class="command"><span>$</span>gh auth login</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan login ke akun GitHub melalui GitHub CLI untuk mengelola repo.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#131</div>
+            <div class="command"><span>$</span>mysql_install_db</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan inisialisasi awal direktori data untuk server MariaDB.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#132</div>
+            <div class="command"><span>$</span>mysqld_safe</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan server database MariaDB di latar belakang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#133</div>
+            <div class="command"><span>$</span>php -S localhost:8080</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan server web lokal menggunakan PHP untuk testing website.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#134</div>
+            <div class="command"><span>$</span>httping -g [url]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengukur latensi server web (mirip ping tapi khusus protokol HTTP).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#135</div>
+            <div class="command"><span>$</span>termux-wifi-scaninfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan pemindaian jaringan WiFi di sekitar dan menampilkan detailnya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#136</div>
+            <div class="command"><span>$</span>python -m http.server 8888</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat server berbagi file instan yang bisa diakses via browser.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#137</div>
+            <div class="command"><span>$</span>termux-sms-send -n [nomor] [pesan]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengirim pesan SMS ke nomor tujuan langsung dari terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#138</div>
+            <div class="command"><span>$</span>termux-telephony-call [nomor]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan panggilan telepon secara otomatis ke nomor tertentu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#139</div>
+            <div class="command"><span>$</span>zipinfo [file.zip]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat rincian teknis file di dalam arsip ZIP tanpa mengekstraknya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#140</div>
+            <div class="command"><span>$</span>termux-vibrate -d 1000 -f</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menggetarkan HP selama 1 detik meskipun dalam mode jangan ganggu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#141</div>
+            <div class="command"><span>$</span>lynx [url_web]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka website dalam bentuk teks penuh tanpa gambar di terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#142</div>
+            <div class="command"><span>$</span>screenfetch</div>
+            <div class="divider"></div>
+            <div class="description">
+                Alternatif neofetch untuk menampilkan logo sistem dan info hardware.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#143</div>
+            <div class="command"><span>$</span>cmatrix</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan efek teks jatuh ala film "The Matrix" di terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#144</div>
+            <div class="command"><span>$</span>sl</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan animasi kereta uap (sering muncul jika salah ketik 'ls').
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#145</div>
+            <div class="command"><span>$</span>toilet -f mono12 -F border [teks]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat banner teks ASCII besar dengan bingkai untuk tampilan bot.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#146</div>
+            <div class="command"><span>$</span>figlet [teks]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah teks biasa menjadi seni huruf ASCII yang menarik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#147</div>
+            <div class="command"><span>$</span>termux-battery-status | grep percentage</div>
+            <div class="divider"></div>
+            <div class="description">
+                Hanya menampilkan persentase baterai HP Anda saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#148</div>
+            <div class="command"><span>$</span>sort [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengurutkan isi teks di dalam file berdasarkan abjad.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#149</div>
+            <div class="command"><span>$</span>uniq [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus baris teks yang duplikat agar hanya tersisa teks unik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#150</div>
+            <div class="command"><span>$</span>base64 [file] > [output]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengonversi file menjadi format teks Base64 untuk pengiriman data.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#151</div>
+            <div class="command"><span>$</span>openssl s_client -connect [host]:443</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek sertifikat SSL dan koneksi aman pada sebuah website.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#152</div>
+            <div class="command"><span>$</span>termux-camera-info</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan spesifikasi teknis modul kamera pada perangkat HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#153</div>
+            <div class="command"><span>$</span>termux-tts-speak -r 1.5 "[teks]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan Text-to-Speech dengan kecepatan bicara yang lebih cepat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#154</div>
+            <div class="command"><span>$</span>pkg list-upgradable</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar paket yang memiliki versi pembaruan terbaru.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#155</div>
+            <div class="command"><span>$</span>crontab -l</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar tugas otomatis (cron jobs) yang sedang aktif terjadwal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#156</div>
+            <div class="command"><span>$</span>ncat --chat -l [port]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat server chat sederhana antar terminal dalam satu jaringan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#157</div>
+            <div class="command"><span>$</span>tree -L 2</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan struktur folder dalam bentuk pohon hingga kedalaman 2 level.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#158</div>
+            <div class="command"><span>$</span>tar -xvf [file.tar]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengekstrak file arsip berformat .tar ke folder tujuan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#159</div>
+            <div class="command"><span>$</span>shasum -a 256 [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek nilai Hash (SHA256) sebuah file untuk memastikan keasliannya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#160</div>
+            <div class="command"><span>$</span>pkg reinstall [nama_paket]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal ulang paket jika terjadi kerusakan file sistem pada paket tersebut.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#161</div>
+            <div class="command"><span>$</span>free -m</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat penggunaan memori RAM dalam satuan Megabytes.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#162</div>
+            <div class="command"><span>$</span>termux-keystore-list</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan kunci keamanan yang tersimpan di dalam sistem Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#163</div>
+            <div class="command"><span>$</span>grep -r "[teks]" .</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari kata tertentu di semua file yang ada di dalam folder saat ini secara rekursif.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#164</div>
+            <div class="command"><span>$</span>history | tail -n 20</div>
+            <div class="divider"></div>
+            <div class="description">
+                Hanya menampilkan 20 perintah terakhir yang pernah Anda ketik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#165</div>
+            <div class="command"><span>$</span>uptime</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat berapa lama sistem/perangkat Anda sudah menyala sejak restart terakhir.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#166</div>
+            <div class="command"><span>$</span>termux-media-scan [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memaksa Android mendeteksi file media baru agar muncul di Galeri atau Music Player.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#167</div>
+            <div class="command"><span>$</span>termux-clipboard-get > file.txt</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyimpan isi teks yang sedang di-copy di Android langsung menjadi sebuah file.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#168</div>
+            <div class="command"><span>$</span>python -c "help()"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Masuk ke menu bantuan interaktif di dalam bahasa pemrograman Python.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#169</div>
+            <div class="command"><span>$</span>du -sk * | sort -rn</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar folder terbesar ke terkecil berdasarkan ukuran filenya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#170</div>
+            <div class="command"><span>$</span>readlink -f [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan alamat path lengkap (absolute path) dari sebuah file.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#171</div>
+            <div class="command"><span>$</span>termux-vibrate -d 200 && sleep 0.5</div>
+            <div class="divider"></div>
+            <div class="description">
+                Contoh perintah gabungan untuk menggetarkan HP dengan jeda waktu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#172</div>
+            <div class="command"><span>$</span>sh [nama_file.sh]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan script shell atau bash sederhana.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#173</div>
+            <div class="command"><span>$</span>termux-wifi-enable true/false</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghidupkan atau mematikan WiFi langsung dari terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#174</div>
+            <div class="command"><span>$</span>tail -f [file_log]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memantau isi file secara real-time (berguna untuk melihat log bot yang sedang jalan).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#175</div>
+            <div class="command"><span>$</span>pkg clean</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus cache hasil download paket untuk menghemat ruang penyimpanan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#176</div>
+            <div class="command"><span>$</span>termux-dialog radio -t "[pilih]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat kotak pilihan (opsi) melayang di layar ponsel Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#177</div>
+            <div class="command"><span>$</span>id</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi User ID (UID) dan Group ID (GID) saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#178</div>
+            <div class="command"><span>$</span>who</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi pengguna yang sedang login ke sistem.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#179</div>
+            <div class="command"><span>$</span>termux-contact-list | grep -i "A"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari nama kontak yang mengandung huruf atau kata tertentu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#180</div>
+            <div class="command"><span>$</span>termux-vibrate -f</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghentikan getaran paksa jika script getar Anda mengalami error.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#181</div>
+            <div class="command"><span>$</span>ping -c 4 google.com</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan ping sebanyak 4 kali saja lalu berhenti secara otomatis.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#182</div>
+            <div class="command"><span>$</span>termux-battery-status | grep status</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek apakah baterai sedang diisi (Charging) atau tidak (Discharging).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#183</div>
+            <div class="command"><span>$</span>mkdir -p folder/subfolder</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat folder beserta subfolder di dalamnya sekaligus secara otomatis.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#184</div>
+            <div class="command"><span>$</span>rmdir [nama_folder]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus folder yang kosong (hanya bekerja jika folder benar-benar kosong).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#185</div>
+            <div class="command"><span>$</span>termux-telephony-deviceinfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan info IMEI, nomor telepon, dan status jaringan SIM Card.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#186</div>
+            <div class="command"><span>$</span>openssl version</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat versi OpenSSL yang terpasang untuk urusan enkripsi data.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#187</div>
+            <div class="command"><span>$</span>tar -tvf [file.tar.gz]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat isi file arsip tar.gz tanpa perlu mengekstraknya terlebih dahulu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#188</div>
+            <div class="command"><span>$</span>printenv PATH</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar lokasi folder (PATH) tempat sistem mencari perintah eksekusi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#189</div>
+            <div class="command"><span>$</span>termux-toast -b black -c green "[teks]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat pesan notifikasi melayang dengan warna latar dan teks kustom.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#190</div>
+            <div class="command"><span>$</span>termux-clipboard-set ""</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus atau mengosongkan isi clipboard ponsel Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#191</div>
+            <div class="command"><span>$</span>pkg list-installed | wc -l</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghitung total jumlah paket yang sudah terpasang di Termux Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#192</div>
+            <div class="command"><span>$</span>termux-camera-photo -c 1 pic.jpg</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil foto secara otomatis menggunakan kamera depan (id:1).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#193</div>
+            <div class="command"><span>$</span>termux-battery-status | grep health</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat status kesehatan baterai ponsel Anda (Good/Overheat/dll).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#194</div>
+            <div class="command"><span>$</span>sleep 10 && termux-vibrate</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menunggu selama 10 detik sebelum akhirnya menggetarkan ponsel.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#195</div>
+            <div class="command"><span>$</span>termux-tts-speak -p 0.5 "[teks]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan Text-to-Speech dengan nada suara yang lebih rendah (bass).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#196</div>
+            <div class="command"><span>$</span>git config --list</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat pengaturan akun GitHub (user dan email) yang terdaftar.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#197</div>
+            <div class="command"><span>$</span>termux-open-url [url]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka sebuah link website langsung ke browser utama Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#198</div>
+            <div class="command"><span>$</span>termux-dialog checkbox -t "[pilih]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memunculkan dialog pilihan ganda (checkbox) di layar Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#199</div>
+            <div class="command"><span>$</span>lsblk</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan informasi partisi penyimpanan yang tersedia di perangkat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#200</div>
+            <div class="command"><span>$</span>termux-vibrate -d 5000</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menutup daftar dengan getaran selama 5 detik penuh. Selesai!
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#201</div>
+            <div class="command"><span>$</span>termux-battery-status | grep health</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek kondisi kesehatan baterai (Cold, Good, Overheat, atau Dead).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#202</div>
+            <div class="command"><span>$</span>termux-sms-list -l 10</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan 10 SMS terakhir yang masuk ke ponsel Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#203</div>
+            <div class="command"><span>$</span>pkg install tsu</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal pembungkus perintah 'su' agar bisa akses root dengan lebih stabil.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#204</div>
+            <div class="command"><span>$</span>tsu</div>
+            <div class="divider"></div>
+            <div class="description">
+                Masuk ke mode Super User (Root) jika HP Anda sudah dalam kondisi di-root.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#205</div>
+            <div class="command"><span>$</span>termux-media-player info</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat informasi lagu yang sedang diputar melalui Termux media player.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#206</div>
+            <div class="command"><span>$</span>termux-wifi-scaninfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari jaringan WiFi di sekitar dan menampilkan kekuatan sinyalnya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#207</div>
+            <div class="command"><span>$</span>termux-job-scheduler -s [script]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjadwalkan sebuah script agar berjalan saat HP sedang di-charge.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#208</div>
+            <div class="command"><span>$</span>ssh-add [path_kunci]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menambahkan kunci SSH ke agent agar tidak perlu input password terus-menerus.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#209</div>
+            <div class="command"><span>$</span>termux-toast -g middle "[teks]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan pesan notifikasi tepat di tengah-tengah layar HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#210</div>
+            <div class="command"><span>$</span>termux-brightness 255</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengatur kecerahan layar ke tingkat maksimal secara instan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#211</div>
+            <div class="command"><span>$</span>termux-dialog confirm -i "Lanjut?"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat pop-up konfirmasi dengan pilihan "OK" atau "Cancel".
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#212</div>
+            <div class="command"><span>$</span>zip -e [nama.zip] [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengompres file menjadi ZIP dan memberikan password (enkripsi).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#213</div>
+            <div class="command"><span>$</span>termux-location -p network</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendapatkan lokasi GPS menggunakan bantuan jaringan internet (lebih cepat).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#214</div>
+            <div class="command"><span>$</span>pm install [file.apk]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal aplikasi Android (file APK) langsung lewat terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#215</div>
+            <div class="command"><span>$</span>termux-clipboard-set "$(pwd)"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyalin alamat lokasi folder saat ini langsung ke clipboard Android.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#216</div>
+            <div class="command"><span>$</span>proot-distro login ubuntu</div>
+            <div class="divider"></div>
+            <div class="description">
+                Masuk ke sistem operasi Ubuntu yang sudah diinstal di dalam Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#217</div>
+            <div class="command"><span>$</span>termux-volume music 10</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengatur volume musik ke level 10 secara otomatis.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#218</div>
+            <div class="command"><span>$</span>termux-sensor -c</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membersihkan semua data sensor yang sedang dibaca di latar belakang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#219</div>
+            <div class="command"><span>$</span>killall [nama_proses]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghentikan semua proses yang memiliki nama yang sama sekaligus.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#220</div>
+            <div class="command"><span>$</span>termux-camera-photo -c 0 foto.jpg</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil foto secara diam-diam menggunakan kamera belakang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#221</div>
+            <div class="command"><span>$</span>termux-dialog speech -t "Bicara"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka pengenalan suara untuk memasukkan input teks lewat suara.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#222</div>
+            <div class="command"><span>$</span>df -T</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan tipe sistem file (ext4, vfat, dll) pada tiap partisi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#223</div>
+            <div class="command"><span>$</span>cat /proc/cpuinfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat detail teknis tentang prosesor yang digunakan HP Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#224</div>
+            <div class="command"><span>$</span>termux-tts-engines</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar mesin suara yang bisa Anda gunakan (Google, dll).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#225</div>
+            <div class="command"><span>$</span>unrar x [file.rar]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengekstrak file yang dikompresi dengan format .rar.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#226</div>
+            <div class="command"><span>$</span>termux-vibrate -d 500 && sleep 1</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menggetarkan HP selama setengah detik lalu menunggu selama 1 detik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#227</div>
+            <div class="command"><span>$</span>pkg install git-lfs</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal ekstensi Git untuk mengelola file berukuran sangat besar.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#228</div>
+            <div class="command"><span>$</span>gh repo create [nama]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat repository baru di akun GitHub Anda langsung dari terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#229</div>
+            <div class="command"><span>$</span>termux-open-url "https://google.com"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka alamat web tertentu secara otomatis ke browser default.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#230</div>
+            <div class="command"><span>$</span>termux-info | grep "Android version"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Hanya menampilkan versi Android yang sedang Anda gunakan saat ini.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#231</div>
+            <div class="command"><span>$</span>termux-wifi-connectioninfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat detail SSID, BSSID, dan kecepatan link WiFi yang terhubung.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#232</div>
+            <div class="command"><span>$</span>termux-battery-status | grep health</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek apakah baterai dalam kondisi sehat atau sudah mulai drop.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#233</div>
+            <div class="command"><span>$</span>npm audit</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memeriksa celah keamanan pada paket Node.js yang terinstal di project.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#234</div>
+            <div class="command"><span>$</span>npm audit fix</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbaiki secara otomatis celah keamanan pada paket NPM.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#235</div>
+            <div class="command"><span>$</span>termux-media-player pause</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghentikan sementara (pause) musik yang sedang diputar di Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#236</div>
+            <div class="command"><span>$</span>termux-media-player resume</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melanjutkan kembali musik yang sebelumnya dijeda (pause).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#237</div>
+            <div class="command"><span>$</span>termux-vibrate -d 3000 -f</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menggetarkan HP selama 3 detik meskipun dalam mode senyap/silent.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#238</div>
+            <div class="command"><span>$</span>termux-toast -s "[isi]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan pesan toast (notifikasi melayang) dengan durasi singkat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#239</div>
+            <div class="command"><span>$</span>termux-toast -l "[isi]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan pesan toast dengan durasi yang lebih lama.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#240</div>
+            <div class="command"><span>$</span>termux-camera-info</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat resolusi dan fitur teknis kamera yang tersedia di HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#241</div>
+            <div class="command"><span>$</span>openssl rand -base64 12</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat password acak yang sangat kuat sepanjang 12 karakter.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#242</div>
+            <div class="command"><span>$</span>pkg show [nama_paket]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat deskripsi, ukuran, dan pembuat dari sebuah paket software.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#243</div>
+            <div class="command"><span>$</span>termux-telephony-deviceinfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat nomor IMEI, operator seluler, dan status roaming.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#244</div>
+            <div class="command"><span>$</span>termux-clipboard-get > log.txt</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyimpan apapun yang baru saja Anda copy ke dalam file teks.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#245</div>
+            <div class="command"><span>$</span>termux-tts-speak -l id "[teks]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan perintah suara (TTS) dalam bahasa Indonesia.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#246</div>
+            <div class="command"><span>$</span>termux-contact-list | grep -i "B"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari kontak yang namanya diawali atau mengandung huruf B.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#247</div>
+            <div class="command"><span>$</span>termux-dialog list -t "[pilih]" -i "A,B,C"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat daftar pilihan menu yang bisa diklik di layar HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#248</div>
+            <div class="command"><span>$</span>termux-dialog counter -r 0,100,1</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat dialog penghitung angka (counter) interaktif.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#249</div>
+            <div class="command"><span>$</span>ls -X</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengurutkan daftar file berdasarkan ekstensi (format file).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#250</div>
+            <div class="command"><span>$</span>ls -S</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengurutkan daftar file berdasarkan ukuran (paling besar di atas).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#251</div>
+            <div class="command"><span>$</span>termux-microphone-record -l</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar file hasil rekaman audio yang tersimpan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#252</div>
+            <div class="command"><span>$</span>termux-sms-inbox -l 1</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membaca pesan SMS terbaru yang baru saja masuk.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#253</div>
+            <div class="command"><span>$</span>cat /proc/meminfo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat statistik detail penggunaan RAM dan swap secara teknis.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#254</div>
+            <div class="command"><span>$</span>termux-wifi-enable true</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyalakan WiFi perangkat secara otomatis via terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#255</div>
+            <div class="command"><span>$</span>termux-wifi-enable false</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mematikan WiFi perangkat secara otomatis via terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#256</div>
+            <div class="command"><span>$</span>termux-volume alarm 10</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengatur volume alarm HP Anda ke level 10.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#257</div>
+            <div class="command"><span>$</span>termux-volume system 5</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengatur volume sistem Android ke level 5.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#258</div>
+            <div class="command"><span>$</span>termux-notification-list</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar semua notifikasi yang sedang aktif di bilah status.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#259</div>
+            <div class="command"><span>$</span>termux-notification-remove [id]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus notifikasi tertentu berdasarkan ID notifikasinya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#260</div>
+            <div class="command"><span>$</span>termux-calllog | head -n 5</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan 5 log panggilan telepon terbaru.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#261</div>
+            <div class="command"><span>$</span>termux-sensor -a</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengaktifkan pembacaan semua sensor HP secara simultan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#262</div>
+            <div class="command"><span>$</span>termux-wallpaper -l</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat lokasi file wallpaper yang sedang digunakan saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#263</div>
+            <div class="command"><span>$</span>termux-wallpaper -f [file.png] -l</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengganti wallpaper lockscreen (layar kunci) secara spesifik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#264</div>
+            <div class="command"><span>$</span>termux-tts-speak -n 2 "[teks]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan TTS dengan nada suara yang sangat tinggi (melengking).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#265</div>
+            <div class="command"><span>$</span>git remote -v</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat alamat URL repository online yang terhubung dengan folder lokal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#266</div>
+            <div class="command"><span>$</span>git status</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat daftar file yang baru diubah dan belum disimpan ke Git.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#267</div>
+            <div class="command"><span>$</span>ssh-keygen -t rsa -b 4096</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat kunci SSH dengan enkripsi RSA yang sangat tinggi (4096 bit).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#268</div>
+            <div class="command"><span>$</span>termux-setup-storage -y</div>
+            <div class="divider"></div>
+            <div class="description">
+                Otomatis memberikan izin akses memori internal tanpa tanya lagi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#269</div>
+            <div class="command"><span>$</span>termux-usb -e [driver] [perangkat]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan driver khusus untuk perangkat USB yang terdeteksi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#270</div>
+            <div class="command"><span>$</span>termux-vibrate -d 500 && termux-toast "[OK]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Contoh script satu baris: Getarkan HP lalu tampilkan notifikasi.
+            </div>
+        </div>
+
+        <style>
+          /* Reset & Base Style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0d0f14;
+    color: #e0e0e0;
+    padding: 20px;
+}
+
+/* Container untuk menampung 270 kartu */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Desain Kartu Baru (Berbeda dari sebelumnya) */
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: #00d4ff;
+    box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+}
+
+/* Badge Nomor (#270) */
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(45deg, #00d4ff, #0055ff);
+    color: white;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-bottom-left-radius: 15px;
+}
+
+/* Bagian Perintah Termux */
+.command {
+    font-family: 'Courier New', Courier, monospace;
+    background: #000;
+    color: #00ff41; /* Warna hijau matrix */
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 0.95rem;
+    border-left: 4px solid #00d4ff;
+}
+
+.command span {
+    color: #ff0055; /* Warna dollar sign */
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+/* Garis Pembatas */
+.divider {
+    height: 2px;
+    background: linear-gradient(90deg, #00d4ff, transparent);
+    margin: 15px 0;
+}
+
+/* Deskripsi */
+.description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #b0b0b0;
+}
+
+/* Responsif untuk HP */
+@media (max-width: 480px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+  }
+          
+        </style>
+
+
+                <div class="card">
+            <div class="badge">#271</div>
+            <div class="command"><span>$</span>pkg install apache2</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal server web Apache untuk menghosting website di Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#272</div>
+            <div class="command"><span>$</span>apachectl start</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan layanan server Apache.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#273</div>
+            <div class="command"><span>$</span>apachectl stop</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghentikan layanan server Apache yang sedang berjalan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#274</div>
+            <div class="command"><span>$</span>pkg install nginx</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal Nginx sebagai alternatif server web yang lebih ringan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#275</div>
+            <div class="command"><span>$</span>nginx</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan server Nginx di latar belakang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#276</div>
+            <div class="command"><span>$</span>nginx -s stop</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghentikan server Nginx secara cepat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#277</div>
+            <div class="command"><span>$</span>termux-auth</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengatur atau mengubah password untuk autentikasi Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#278</div>
+            <div class="command"><span>$</span>termux-chroot</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menggunakan lingkungan chroot untuk menjalankan tool yang butuh struktur Linux standar.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#279</div>
+            <div class="command"><span>$</span>pkg install tor</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal layanan Tor untuk browsing anonim via terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#280</div>
+            <div class="command"><span>$</span>tor</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan sirkuit Tor untuk mengamankan koneksi jaringan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#281</div>
+            <div class="command"><span>$</span>pkg install proxychains-ng</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool untuk mengarahkan koneksi melalui proxy kustom.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#282</div>
+            <div class="command"><span>$</span>proxychains4 [perintah]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan aplikasi melalui rantai proxy yang sudah dikonfigurasi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#283</div>
+            <div class="command"><span>$</span>termux-toast -c "red" -b "white" "Pesan"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat toast dengan warna teks merah dan background putih.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#284</div>
+            <div class="command"><span>$</span>termux-dialog text -m -i "Tulis di sini"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Dialog input teks yang mendukung banyak baris (multi-line).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#285</div>
+            <div class="command"><span>$</span>pkg install htop</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal monitor sistem interaktif yang lebih canggih dari 'top'.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#286</div>
+            <div class="command"><span>$</span>htop</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat penggunaan CPU, RAM, dan proses secara visual dan real-time.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#287</div>
+            <div class="command"><span>$</span>pkg install nload</div>
+            <div class="divider"></div>
+            <div class="description">
+                Monitor penggunaan bandwidth jaringan secara real-time.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#288</div>
+            <div class="command"><span>$</span>nload</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan grafik kecepatan upload dan download internet.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#289</div>
+            <div class="command"><span>$</span>pkg install tree</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool untuk melihat daftar file dalam bentuk diagram pohon.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#290</div>
+            <div class="command"><span>$</span>tree -d</div>
+            <div class="divider"></div>
+            <div class="description">
+                Hanya menampilkan daftar folder saja tanpa menyertakan file.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#291</div>
+            <div class="command"><span>$</span>pkg install ncdu</div>
+            <div class="divider"></div>
+            <div class="description">
+                Penganalisis penggunaan disk yang berbasis teks interaktif.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#292</div>
+            <div class="command"><span>$</span>ncdu</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari folder mana yang paling banyak memakan memori HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#293</div>
+            <div class="command"><span>$</span>pkg install zip</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal utilitas kompresi file ZIP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#294</div>
+            <div class="command"><span>$</span>zip -r hasil.zip folder/</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengompres seluruh folder menjadi satu file ZIP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#295</div>
+            <div class="command"><span>$</span>pkg install unzip</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal utilitas untuk mengekstrak file ZIP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#296</div>
+            <div class="command"><span>$</span>unzip file.zip -d tujuan/</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengekstrak file ZIP ke folder tertentu yang ditentukan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#297</div>
+            <div class="command"><span>$</span>pkg install wget</div>
+            <div class="divider"></div>
+            <div class="description">
+                Download manager baris perintah yang sangat stabil.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#298</div>
+            <div class="command"><span>$</span>wget -c [url]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melanjutkan download yang sempat terputus (resume).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#299</div>
+            <div class="command"><span>$</span>pkg install curl</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool transfer data yang mendukung berbagai protokol (HTTP, FTP, dll).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#300</div>
+            <div class="command"><span>$</span>curl -I [url]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat Header HTTP dari sebuah alamat website.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#301</div>
+            <div class="command"><span>$</span>pkg install ffmpeg</div>
+            <div class="divider"></div>
+            <div class="description">
+                Framework multimedia untuk memproses video, audio, dan gambar.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#302</div>
+            <div class="command"><span>$</span>ffmpeg -i audio.mp3 audio.wav</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah format file audio dari MP3 ke WAV.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#303</div>
+            <div class="command"><span>$</span>pkg install imagemagick</div>
+            <div class="divider"></div>
+            <div class="description">
+                Koleksi tool untuk memanipulasi gambar (resize, convert, dll).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#304</div>
+            <div class="command"><span>$</span>convert foto.jpg foto.png</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah format gambar JPG menjadi PNG via terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#305</div>
+            <div class="command"><span>$</span>pkg install golang</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal kompiler bahasa pemrograman Go (Golang).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#306</div>
+            <div class="command"><span>$</span>go version</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek versi Golang yang terpasang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#307</div>
+            <div class="command"><span>$</span>pkg install rust</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal bahasa pemrograman Rust dan pengelola paket Cargo.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#308</div>
+            <div class="command"><span>$</span>rustc --version</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek versi kompiler Rust.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#309</div>
+            <div class="command"><span>$</span>pkg install ruby</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal bahasa pemrograman Ruby.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#310</div>
+            <div class="command"><span>$</span>gem install [nama_gem]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal library atau modul tambahan untuk bahasa Ruby.
+            </div>
+        </div>
+
+                <div class="card">
+            <div class="badge">#311</div>
+            <div class="command"><span>$</span>pkg install ruby</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal bahasa pemrograman Ruby yang populer untuk pengembangan web.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#312</div>
+            <div class="command"><span>$</span>gem install bundle</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal bundler untuk mengelola ketergantungan (dependencies) Ruby.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#313</div>
+            <div class="command"><span>$</span>pkg install openjdk-17</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal Java Development Kit (JDK) versi 17 di Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#314</div>
+            <div class="command"><span>$</span>java --version</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek versi Java yang aktif saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#315</div>
+            <div class="command"><span>$</span>javac [File.java]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengompilasi file sumber Java menjadi file class.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#316</div>
+            <div class="command"><span>$</span>pkg install perl</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal bahasa pemrograman Perl yang kuat untuk pemrosesan teks.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#317</div>
+            <div class="command"><span>$</span>pkg install lua54</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal Lua, bahasa scripting ringan yang sering digunakan di game.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#318</div>
+            <div class="command"><span>$</span>pkg install micro</div>
+            <div class="divider"></div>
+            <div class="description">
+                Teks editor modern berbasis terminal yang lebih mudah dari Nano/Vim.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#319</div>
+            <div class="command"><span>$</span>micro [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka file menggunakan editor Micro (mendukung shortcut Ctrl+S).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#320</div>
+            <div class="command"><span>$</span>pkg install clang</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal kompiler C dan C++ (Clang) untuk pengembangan native.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#321</div>
+            <div class="command"><span>$</span>g++ [file.cpp] -o [output]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengompilasi kode C++ menjadi program yang bisa dijalankan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#322</div>
+            <div class="command"><span>$</span>pkg install make</div>
+            <div class="divider"></div>
+            <div class="description">
+                Alat untuk mengotomatisasi kompilasi program berskala besar.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#323</div>
+            <div class="command"><span>$</span>pkg install cmake</div>
+            <div class="divider"></div>
+            <div class="description">
+                Sistem build lintas platform untuk mengelola proses kompilasi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#324</div>
+            <div class="command"><span>$</span>termux-reload-settings</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbarui font dan warna Termux tanpa harus keluar aplikasi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#325</div>
+            <div class="command"><span>$</span>pkg install zsh</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal shell Zsh sebagai alternatif Bash yang lebih interaktif.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#326</div>
+            <div class="command"><span>$</span>chsh -s zsh</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengganti shell utama Termux dari Bash ke Zsh secara permanen.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#327</div>
+            <div class="command"><span>$</span>pkg install fish</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal Fish shell yang memiliki fitur autosuggestion bawaan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#328</div>
+            <div class="command"><span>$</span>pkg install screen</div>
+            <div class="divider"></div>
+            <div class="description">
+                Alat untuk menjaga sesi terminal tetap jalan meskipun koneksi terputus.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#329</div>
+            <div class="command"><span>$</span>screen -S [nama]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat sesi baru di Screen agar script tidak mati saat keluar aplikasi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#330</div>
+            <div class="command"><span>$</span>screen -r [nama]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Masuk kembali ke sesi Screen yang sedang berjalan di latar belakang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#331</div>
+            <div class="command"><span>$</span>pkg install rsync</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool sinkronisasi file antar folder atau antar server dengan cepat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#332</div>
+            <div class="command"><span>$</span>rsync -avz [asal] [tujuan]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyalin folder secara cerdas dengan hanya mengirim file yang berubah.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#333</div>
+            <div class="command"><span>$</span>pkg install openssh</div>
+            <div class="divider"></div>
+            <div class="description">
+                Paket utama untuk koneksi SSH jarak jauh ke server atau VPS.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#334</div>
+            <div class="command"><span>$</span>sshd</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan server SSH agar HP kamu bisa diremote dari Laptop/PC.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#335</div>
+            <div class="command"><span>$</span>pkill sshd</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mematikan layanan server SSH yang sedang aktif.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#336</div>
+            <div class="command"><span>$</span>pkg install dropbear</div>
+            <div class="divider"></div>
+            <div class="description">
+                Alternatif server SSH yang jauh lebih ringan dibanding OpenSSH.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#337</div>
+            <div class="command"><span>$</span>pkg install mtr</div>
+            <div class="divider"></div>
+            <div class="description">
+                Diagnostik jaringan yang menggabungkan fitur Ping dan Traceroute.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#338</div>
+            <div class="command"><span>$</span>mtr google.com</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengecek titik mana yang lemot dalam jalur koneksi internet kamu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#339</div>
+            <div class="command"><span>$</span>pkg install aria2</div>
+            <div class="divider"></div>
+            <div class="description">
+                Download manager multi-protokol yang sangat cepat dan ringan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#340</div>
+            <div class="command"><span>$</span>aria2c -x 16 [url]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendownload file menggunakan 16 koneksi sekaligus agar lebih cepat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#341</div>
+            <div class="command"><span>$</span>pkg install rclone</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool untuk mengelola file di Google Drive, Dropbox, dll via terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#342</div>
+            <div class="command"><span>$</span>rclone config</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyiapkan akun cloud storage untuk digunakan di Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#343</div>
+            <div class="command"><span>$</span>pkg install gnupg</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool untuk mengenkripsi dan memberikan tanda tangan digital pada file.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#344</div>
+            <div class="command"><span>$</span>gpg -c [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengunci file menggunakan password yang sangat kuat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#345</div>
+            <div class="command"><span>$</span>pkg install hexyl</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat isi file dalam format Hexadecimal secara berwarna.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#346</div>
+            <div class="command"><span>$</span>hexyl [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menganalisis kode biner atau file rusak melalui tampilan hex.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#347</div>
+            <div class="command"><span>$</span>pkg install bat</div>
+            <div class="divider"></div>
+            <div class="description">
+                Alternatif perintah 'cat' yang dilengkapi syntax highlighting (berwarna).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#348</div>
+            <div class="command"><span>$</span>bat [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membaca isi file script dengan pewarnaan kode yang rapi.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#349</div>
+            <div class="command"><span>$</span>pkg install fd</div>
+            <div class="divider"></div>
+            <div class="description">
+                Alternatif perintah 'find' yang jauh lebih cepat dan simpel.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#350</div>
+            <div class="command"><span>$</span>fd [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari lokasi file di seluruh memori dengan sekejap.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#351</div>
+            <div class="command"><span>$</span>pkg install redis</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal Redis, database in-memory yang sangat cepat untuk caching.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#352</div>
+            <div class="command"><span>$</span>redis-server</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan server Redis di latar belakang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#353</div>
+            <div class="command"><span>$</span>redis-cli</div>
+            <div class="divider"></div>
+            <div class="description">
+                Masuk ke konsol interaktif Redis untuk mengelola data.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#354</div>
+            <div class="command"><span>$</span>pkg install sqlite</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menginstal SQLite, database ringan berbasis file yang efisien.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#355</div>
+            <div class="command"><span>$</span>sqlite3 [nama_db].db</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat atau membuka file database SQLite3.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#356</div>
+            <div class="command"><span>$</span>pkg install socat</div>
+            <div class="divider"></div>
+            <div class="description">
+                Relay untuk transfer data dua arah antar dua aliran data network.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#357</div>
+            <div class="command"><span>$</span>pkg install tcpdump</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool penganalisis paket jaringan (sniffing) yang sangat powerful.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#358</div>
+            <div class="command"><span>$</span>tcpdump -i any</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memantau seluruh lalu lintas data yang melewati perangkat Anda.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#359</div>
+            <div class="command"><span>$</span>pkg install termux-gui</div>
+            <div class="divider"></div>
+            <div class="description">
+                Paket untuk menjalankan aplikasi berbasis grafis sederhana di Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#360</div>
+            <div class="command"><span>$</span>pkg install lazygit</div>
+            <div class="divider"></div>
+            <div class="description">
+                UI berbasis terminal untuk mengelola Git dengan lebih mudah.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#361</div>
+            <div class="command"><span>$</span>lazygit</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan antarmuka visual Git untuk commit dan push cepat.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#362</div>
+            <div class="command"><span>$</span>pkg install ranger</div>
+            <div class="divider"></div>
+            <div class="description">
+                File manager berbasis terminal dengan navigasi tombol panah.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#363</div>
+            <div class="command"><span>$</span>ranger</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka file manager Ranger untuk kelola folder secara visual.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#364</div>
+            <div class="command"><span>$</span>pkg install glances</div>
+            <div class="divider"></div>
+            <div class="description">
+                Monitor sistem lengkap yang memantau CPU, RAM, Disk, dan Network.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#365</div>
+            <div class="command"><span>$</span>glances</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan dashboard pemantau sistem secara menyeluruh.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#366</div>
+            <div class="command"><span>$</span>pkg install neovim</div>
+            <div class="divider"></div>
+            <div class="description">
+                Editor teks Vim versi modern dengan fitur yang lebih kaya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#367</div>
+            <div class="command"><span>$</span>nvim [file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka file dengan Neovim (editor favorit programmer).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#368</div>
+            <div class="command"><span>$</span>pkg install jq</div>
+            <div class="divider"></div>
+            <div class="description">
+                Tool pengolah data JSON lewat terminal yang sangat efisien.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#369</div>
+            <div class="command"><span>$</span>cat data.json | jq</div>
+            <div class="divider"></div>
+            <div class="description">
+                Merapikan tampilan teks JSON agar mudah dibaca manusia.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#370</div>
+            <div class="command"><span>$</span>pkg install fzf</div>
+            <div class="divider"></div>
+            <div class="description">
+                Fuzzy finder untuk mencari file atau riwayat perintah secara instan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#371</div>
+            <div class="command"><span>$</span>history | fzf</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari perintah yang pernah diketik menggunakan pencarian cerdas.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#372</div>
+            <div class="command"><span>$</span>pkg install mc</div>
+            <div class="divider"></div>
+            <div class="description">
+                Midnight Commander, file manager dua panel klasik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#373</div>
+            <div class="command"><span>$</span>mc</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan Midnight Commander.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#374</div>
+            <div class="command"><span>$</span>pkg install silversearcher-ag</div>
+            <div class="divider"></div>
+            <div class="description">
+                Pencari kode di dalam file yang sangat cepat (The Silver Searcher).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#375</div>
+            <div class="command"><span>$</span>ag "[teks]"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mencari teks tertentu di dalam ribuan file dalam sekejap.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#376</div>
+            <div class="command"><span>$</span>pkg install links</div>
+            <div class="divider"></div>
+            <div class="description">
+                Web browser berbasis teks yang mendukung tabel dan frame.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#377</div>
+            <div class="command"><span>$</span>links google.com</div>
+            <div class="divider"></div>
+            <div class="description">
+                Browsing internet tanpa gambar langsung di dalam terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#378</div>
+            <div class="command"><span>$</span>pkg install tesseract</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mesin OCR untuk mengubah gambar berisi tulisan menjadi teks.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#379</div>
+            <div class="command"><span>$</span>tesseract foto.jpg output</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengekstrak teks dari sebuah foto secara otomatis.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#380</div>
+            <div class="command"><span>$</span>pkg install cowsay</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan teks yang diucapkan oleh sapi ASCII (hiburan).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#381</div>
+            <div class="command"><span>$</span>cowsay "Halo Boss"</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan animasi sapi bicara.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#382</div>
+            <div class="command"><span>$</span>pkg install fortune</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan kutipan keberuntungan atau kata-kata bijak acak.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#383</div>
+            <div class="command"><span>$</span>fortune | cowsay</div>
+            <div class="divider"></div>
+            <div class="description">
+                Gabungan: Sapi bicara yang membacakan kata bijak acak.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#384</div>
+            <div class="command"><span>$</span>alias [nama]='[perintah]'</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat nama panggilan (shortcut) untuk perintah yang panjang.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#385</div>
+            <div class="command"><span>$</span>unalias [nama]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus shortcut alias yang sudah dibuat sebelumnya.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#386</div>
+            <div class="command"><span>$</span>pkg install pass</div>
+            <div class="divider"></div>
+            <div class="description">
+                Pengelola kata sandi standar UNIX yang aman.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#387</div>
+            <div class="command"><span>$</span>pkg install progress</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat persentase progres perintah coreutils (seperti cp, mv).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#388</div>
+            <div class="command"><span>$</span>pkg install tree</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan struktur direktori dalam format pohon yang cantik.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#389</div>
+            <div class="command"><span>$</span>tree -H . > index.html</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah daftar folder menjadi halaman web HTML secara otomatis.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#390</div>
+            <div class="command"><span>$</span>pkg install parallel</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan banyak perintah sekaligus secara paralel untuk hemat waktu.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#391</div>
+            <div class="command"><span>$</span>pkg install ncdu</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat folder mana yang paling boros memori secara interaktif.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#392</div>
+            <div class="command"><span>$</span>pkg install calcurse</div>
+            <div class="divider"></div>
+            <div class="description">
+                Kalender dan pengelola daftar tugas (To-Do) berbasis terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#393</div>
+            <div class="command"><span>$</span>calcurse</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka jadwal dan agenda harian di Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#394</div>
+            <div class="command"><span>$</span>pkg install newsboat</div>
+            <div class="divider"></div>
+            <div class="description">
+                Pembaca RSS Feed untuk mengikuti berita favorit via terminal.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#395</div>
+            <div class="command"><span>$</span>newsboat</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka berita terbaru dari feed yang sudah didaftarkan.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#396</div>
+            <div class="command"><span>$</span>pkg install taskwarrior</div>
+            <div class="divider"></div>
+            <div class="description">
+                Sistem manajemen tugas (Task Manager) yang sangat fleksibel.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#397</div>
+            <div class="command"><span>$</span>task add [tugas]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menambah daftar pekerjaan baru ke dalam sistem.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#398</div>
+            <div class="command"><span>$</span>task list</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat semua daftar pekerjaan yang belum selesai.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#399</div>
+            <div class="command"><span>$</span>pkg install tldr</div>
+            <div class="divider"></div>
+            <div class="description">
+                Penjelasan singkat perintah Linux (alternatif 'man' yang terlalu panjang).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#400</div>
+            <div class="command"><span>$</span>tldr [perintah]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melihat contoh cara pakai suatu perintah secara ringkas dan praktis.
+            </div>
+        </div>
+
+
+        
