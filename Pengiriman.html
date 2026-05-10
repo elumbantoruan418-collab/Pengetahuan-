@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termux Command Central</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+        <h1>TERMUX</h1>
+        <h1>COMMAND</h1>
+        <h1>CENTRAL</h1>
+        <p>[ SYSTEM ANALYSIS: 100 COMMAND MODULES LOADED ]</p>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="badge">#1</div>
+            <div class="command"><span>$</span>pkg update</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbarui daftar paket yang tersedia.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#2</div>
+            <div class="command"><span>$</span>pkg upgrade</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memperbarui semua paket yang terinstal ke versi terbaru.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#3</div>
+            <div class="command"><span>$</span>ls</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan daftar file dan folder di direktori saat ini.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#4</div>
+            <div class="command"><span>$</span>cd</div>
+            <div class="divider"></div>
+            <div class="description">
+                Berpindah dari satu direktori ke direktori lain.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#5</div>
+            <div class="command"><span>$</span>pwd</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan path direktori kerja saat ini.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<style>
+  /* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: #050a05; /* Hitam sangat pekat */
+    background-image: linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+    background-size: 100% 3px; /* Efek garis scanline TV lama */
+    color: #00ff41;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px #00ff41;
+    margin: 5px 0;
+}
+
+.header p {
+    font-size: 0.9rem;
+    margin-top: 15px;
+    color: #00ff41;
+    opacity: 0.8;
+}
+
+/* Container Kartu */
+.container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.card {
+    background: rgba(0, 255, 65, 0.05);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    position: relative;
+    box-shadow: inset 0 0 15px rgba(0, 255, 65, 0.05);
+}
+
+/* Badge Nomor (#1, #2, dst) */
+.badge {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    background: #00ff41;
+    color: #000;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    box-shadow: 0 0 10px #00ff41;
+}
+
+/* Teks Perintah */
+.command {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.command span {
+    color: #00ff41;
+    margin-right: 10px;
+}
+
+/* Garis Pembatas */
+.divider {
+    height: 1px;
+    background: rgba(0, 255, 65, 0.3);
+    margin: 15px 0;
+}
+
+/* Penjelasan */
+.description {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #c0c0c0;
+}
+  </style>
+        <div class="card">
+            <div class="badge">#6</div>
+            <div class="command"><span>$</span>rm -rf [nama_folder]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus file atau folder secara paksa dan permanen.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#7</div>
+            <div class="command"><span>$</span>termux-setup-storage</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memberikan izin Termux untuk mengakses file di memori internal HP.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#8</div>
+            <div class="command"><span>$</span>git clone [url_github]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengunduh script atau project dari GitHub ke dalam Termux.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#9</div>
+            <div class="command"><span>$</span>chmod +x [nama_file]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah izin file agar bisa dieksekusi (dijalankan).
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#10</div>
+            <div class="command"><span>$</span>python [nama_file.py]</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menjalankan program atau script yang berbasis bahasa Python.
+            </div>
+        </div>
+
+<style>
+/* Tambahkan ini di bagian .card pada style.css */
+.card {
+    /* ... kode yang lama ... */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 255, 65, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+  
+</style>
+
+ 
+            
+      
