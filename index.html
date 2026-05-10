@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar HTML JS</title>
+    <style>
+        body {
+            /* Latar belakang gradient agar tidak gelap polos */
+            background: radial-gradient(circle at center, #1e293b 0%, #0b0e14 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .header-text {
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            /* Efek glow pada teks */
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .card {
+            /* Warna kartu putih bersih dengan sedikit transparansi */
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px 15px;
+            border-radius: 24px;
+            text-align: center;
+            text-decoration: none;
+            color: #1a1a1a;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Efek hover lebih mantap */
+        .card:hover {
+            transform: translateY(-5px);
+            background: #ffffff;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .card:active {
+            transform: scale(0.95);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            /* Filter supaya warna emoji lebih keluar */
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+        }
+
+        .title {
+            font-size: 17px;
+            font-weight: 700;
+            display: block;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #64748b;
+            display: block;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-text">
+        Bljr HTML/JS Lengkap Pull
+    </div>
+
+    <div class="container">
+        <a href="#" class="card">
+            <span class="icon">📞</span>
+            <span class="title">Panggilan</span>
+            <span class="subtitle">beljr tentang termux</span>
+        </a>
+
+        <a href="#" class="card">
+            <span class="icon">🚀</span>
+            <span class="title">Script</span>
+            <span class="subtitle">otomatis</span>
+        </a>
+
+        <a href="#" class="card">
+            <span class="icon">🎨</span>
+            <span class="title">Tema</span>
+            <span class="subtitle">Kustom tampilan</span>
+        </a>
+
+        <a href="#" class="card">
+            <span class="icon">🛠️</span>
+            <span class="title">Tools</span>
+            <span class="subtitle">Alat tempur</span>
+        </a>
+    </div>
+
+</body>
+</html>
