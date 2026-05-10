@@ -14,7 +14,156 @@
         <h1>CENTRAL</h1>
         <p>[ SYSTEM ANALYSIS: 100 COMMAND MODULES LOADED ]</p>
     </div>
+<style>/* Base Style */
+:root {
+    --neon-blue: #00d4ff;
+    --neon-green: #00ff41;
+    --dark-bg: #0d0f14;
+    --card-bg: rgba(255, 255, 255, 0.03);
+}
 
+body {
+    background-color: var(--dark-bg);
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: sticky;
+    top: 0;
+    background: var(--dark-bg);
+    z-index: 100;
+    padding: 20px 0;
+}
+
+header h1 {
+    color: var(--neon-blue);
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* Search Bar */
+.search-container {
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: 2px solid var(--neon-blue);
+    background: #1a1d24;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    transition: 0.3s;
+}
+
+#searchInput:focus {
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+}
+
+/* Grid Layout */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card Design */
+.card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+    transition: 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: scale(1.03);
+    border-color: var(--neon-blue);
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(45deg, var(--neon-blue), #0055ff);
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-bottom-left-radius: 15px;
+}
+
+.command {
+    font-family: 'Courier New', monospace;
+    background: #000;
+    color: var(--neon-green);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.command span {
+    color: #ff0055;
+    margin-right: 5px;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+    margin: 15px 0;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #b0b0b0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+            <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari perintah atau deskripsi... (contoh: git, wifi, sql)" onkeyup="searchCommand()">
+        </div>
+    
+
+
+
+    <script>
+        function searchCommand() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].innerText.toLowerCase();
+                if (text.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
     <div class="container">
         <div class="card">
             <div class="badge">#1</div>
