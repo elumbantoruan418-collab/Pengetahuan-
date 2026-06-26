@@ -3,150 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>js Command Central</title>
+    <title>JS Command Central</title>
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Base Style */
+        :root {
+            --neon-blue: #00d4ff;
+            --neon-green: #00ff41;
+            --dark-bg: #0d0f14;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #e0e0e0;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            background: var(--dark-bg);
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .header h1 {
+            color: var(--neon-blue);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            margin: 5px 0;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 20px auto 40px auto;
+            max-width: 600px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--neon-blue);
+            background: #1a1d24;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+            transition: 0.3s;
+        }
+
+        #searchInput:focus {
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Grid Layout */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Card Design */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(45deg, var(--neon-blue), #0055ff);
+            color: white;
+            padding: 5px 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-top-right-radius: 14px;
+            border-bottom-left-radius: 15px;
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: var(--neon-green);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .command span {
+            color: #ff0055;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, var(--neon-blue), transparent);
+            margin: 15px 0;
+        }
+
+        .description {
+            font-size: 0.85rem;
+            color: #b0b0b0;
+        }
+
+        .description code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #fff;
+            font-family: monospace;
+            display: block;
+            margin-top: 5px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
  
-  
-    
-    
     <div class="header">
-        <h1>javascript</h1>
-        <h1>COMMAND</h1>
-        <h1>CENTRAL</h1>
-        <p>[ SYSTEM ANALYSIS: 100 COMMAND MODULES LOADED ]</p>
+        <h1>JavaScript</h1>
+        <h1>Command Central</h1>
+        <p>[ SYSTEM ANALYSIS: 400 COMMAND MODULES LOADED ]</p>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari perintah, deskripsi, atau nomor modul...">
+        </div>
     </div>
-<style>
-  /* Base Style */
-:root {
-    --neon-blue: #00d4ff;
-    --neon-green: #00ff41;
-    --dark-bg: #0d0f14;
-    --card-bg: rgba(255, 255, 255, 0.03);
-}
 
-body {
-    background-color: var(--dark-bg);
-    color: #e0e0e0;
-    font-family: 'Segoe UI', sans-serif;
-    padding: 20px;
-    line-height: 1.6;
-}
+    <div class="container">
+        
+        <div class="card">
+            <div class="badge">#400</div>
+            <div class="command"><span>JS</span>ctx.reply('🏁 BANK DATA SELESAI')</div>
+            <div class="divider"></div>
+            <div class="description">
+                Titik puncak penutup data. Seluruh fungsionalitas core API, handling server, validasi owner, serta otomasi payment genap 400 kartu.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.reply('Selamat! Dashboard Kamus Referensi Coding Telegraf Anda telah rampung 100%.');</code>
+            </div>
+        </div>
 
-header {
-    text-align: center;
-    margin-bottom: 40px;
-    position: sticky;
-    top: 0;
-    background: var(--dark-bg);
-    z-index: 100;
-    padding: 20px 0;
-}
+    </div>
 
-header h1 {
-    color: var(--neon-blue);
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-}
-
-/* Search Bar */
-.search-container {
-    margin-top: 20px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#searchInput {
-    width: 100%;
-    padding: 15px 25px;
-    border-radius: 30px;
-    border: 2px solid var(--neon-blue);
-    background: #1a1d24;
-    color: white;
-    font-size: 1rem;
-    outline: none;
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-    transition: 0.3s;
-}
-
-#searchInput:focus {
-    box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
-}
-
-/* Grid Layout */
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Card Design */
-.card {
-    background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 20px;
-    position: relative;
-    transition: 0.3s;
-    backdrop-filter: blur(10px);
-}
-
-.card:hover {
-    transform: scale(1.03);
-    border-color: var(--neon-blue);
-}
-
-.badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: linear-gradient(45deg, var(--neon-blue), #0055ff);
-    color: white;
-    padding: 5px 12px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    border-bottom-left-radius: 15px;
-}
-
-.command {
-    font-family: 'Courier New', monospace;
-    background: #000;
-    color: var(--neon-green);
-    padding: 12px;
-    border-radius: 8px;
-    margin-top: 15px;
-    font-size: 0.9rem;
-    overflow-x: auto;
-}
-
-.command span {
-    color: #ff0055;
-    margin-right: 5px;
-}
-
-.divider {
-    height: 1px;
-    background: linear-gradient(90deg, var(--neon-blue), transparent);
-    margin: 15px 0;
-}
-
-.description {
-    font-size: 0.85rem;
-    color: #b0b0b0;
-}
-
-/* Mobile Responsive */
-@media (max-width: 600px) {
-    .container {
-        grid-template-columns: 1fr;
-    }
-}
-
-  </style>
        <div class="search-container">
             <input type="text" id="searchInput" placeholder="Cari perintah atau deskripsi... (contoh: git, wifi, sql)" onkeyup="searchCommand()">
         </div>
@@ -4192,3 +4229,499 @@ my-telegram-bot/
             </div>
         </div>
         
+        <div class="card">
+            <div class="badge">#356</div>
+            <div class="command"><span>JS</span>ctx.session = {}</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus atau mereset total seluruh data sementara (session) pengguna. Sangat vital digunakan saat user menekan tombol 'Batal' atau setelah transaksi selesai.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.hears('❌ Batal', (ctx) => { ctx.session = {}; ctx.reply('Proses dibatalkan. Sesi Anda telah dibersihkan.'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#357</div>
+            <div class="command"><span>JS</span>bot.use(Telegraf.session())</div>
+            <div class="divider"></div>
+            <div class="description">
+                Middleware wajib untuk mengaktifkan fitur penyimpanan memori jangka pendek (session) di bot agar bot bisa mengingat input beruntun dari user.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const { Telegraf } = require('telegraf'); const bot = new Telegraf('TOKEN'); bot.use(Telegraf.session());</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#358</div>
+            <div class="command"><span>JS</span>ctx.from.username || 'Tanpa Username'</div>
+            <div class="divider"></div>
+            <div class="description">
+                Logika fallback menggunakan operator OR (`||`) untuk mengantisipasi error jika data username pengguna kosong/tidak disetting di profil Telegram.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const username = ctx.from.username ? `@${ctx.from.username}` : 'Tidak Ada'; ctx.reply(`Pembeli: ${username}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#359</div>
+            <div class="command"><span>JS</span>bot.catch((err, ctx) => { ... })</div>
+            <div class="divider"></div>
+            <div class="description">
+                Sistem global error handling agar bot tidak mendadak mati (crash) di VPS/hosting ketika terjadi error runtime atau kegagalan API.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.catch((err, ctx) => { console.error(`Error pada update ${ctx.updateType}:`, err); ctx.reply('Terjadi kesalahan internal pada server bot.'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#360</div>
+            <div class="command"><span>JS</span>const bot = new Telegraf(process.env.BOT_TOKEN)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Praktik keamanan terbaik (best practice) dengan memuat Token Bot dari file `.env` (Environment Variables) agar token tidak bocor saat push ke GitHub.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>require('dotenv').config(); const bot = new Telegraf(process.env.BOT_TOKEN);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#361</div>
+            <div class="command"><span>JS</span>ctx.answerCbQuery('⚠️ Saldo Kurang!', { show_alert: true })</div>
+            <div class="divider"></div>
+            <div class="description">
+                Modifikasi callback query untuk memunculkan pesan peringatan berbentuk kotak dialog pop-up alert yang wajib diklik 'OK' oleh pengguna.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.action('beli_vip', (ctx) => { ctx.answerCbQuery('Gagal! Saldo QRIS Anda tidak mencukupi.', { show_alert: true }); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#362</div>
+            <div class="command"><span>JS</span>ctx.message.reply_to_message.from.id</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil ID Telegram milik orang lain melalui pesan yang dibalas (reply). Sangat berguna untuk membuat perintah moderasi seperti /ban atau /addsaldo.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.command('getid', (ctx) => { if(!ctx.message.reply_to_message) return; const target = ctx.message.reply_to_message.from.id; ctx.reply(`ID Target: ${target}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#363</div>
+            <div class="command"><span>JS</span>ctx.chat.type === 'private'</div>
+            <div class="divider"></div>
+            <div class="description">
+                Logika validasi untuk memastikan bahwa suatu perintah hanya boleh dijalankan di dalam chat pribadi (PM) dengan bot, bukan di dalam grup.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.command('buy', (ctx) => { if (ctx.chat.type !== 'private') return ctx.reply('Perintah ini hanya bisa digunakan lewat PM Bot!'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#364</div>
+            <div class="command"><span>JS</span>ctx.chat.type === 'supergroup'</div>
+            <div class="divider"></div>
+            <div class="description">
+                Logika validasi untuk memastikan perintah (seperti sistem rekber/middleman) hanya aktif jika dipicu di dalam area grup/supergroup obrolan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.command('rekber', (ctx) => { if (ctx.chat.type === 'group' || ctx.chat.type === 'supergroup') { ctx.reply('Sistem Rekber Aktif...'); } });</code>
+            </div>
+        </div>
+
+
+            <div class="card">
+            <div class="badge">#365</div>
+            <div class="command"><span>JS</span>bot.hears(/^[a-zA-Z0-9]+$/)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Validasi input text menggunakan Regex untuk memastikan user hanya memasukkan karakter Alfanumerik (tanpa simbol/spasi). Sangat aman untuk input voucher.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.hears(/^[a-zA-Z0-9]+$/, (ctx) => { ctx.reply(`Kode voucher ${ctx.message.text} sedang diproses...`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#366</div>
+            <div class="command"><span>JS</span>new Date().toLocaleString('id-ID')</div>
+            <div class="divider"></div>
+            <div class="description">
+                Format waktu JavaScript kustom untuk mencetak tanggal, jam, dan menit sesuai dengan zona waktu Indonesia (WIB/WITA/WIT) di nota pembelian.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const wni = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }); ctx.reply(`Waktu Transaksi: ${wni}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#367</div>
+            <div class="command"><span>JS</span>Math.floor(Math.random() * 90000)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Fungsi generator acak untuk membuat invoice ID unik atau kode verifikasi OTP berupa deretan angka acak berskala besar.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const trxId = 'WNZ-' + Math.floor(100000 + Math.random() * 900000); ctx.reply(`ID Transaksi Anda: ${trxId}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#368</div>
+            <div class="command"><span>JS</span>Array.from(new Set([...]))</div>
+            <div class="divider"></div>
+            <div class="description">
+                Manipulasi array tingkat lanjut untuk menghapus baris ID pengguna yang duplikat dalam database memori sebelum melakukan broadcast massal.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const listDb = [111, 222, 111, 333]; const uniqueUsers = Array.from(new Set(listDb)); // Hasil: [111, 222, 333]</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#369</div>
+            <div class="command"><span>JS</span>setTimeout(() => {}, ms)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Fungsi delay bawaan JS untuk mengatur jeda waktu sebelum bot mengeksekusi fungsi tertentu (misalnya menghapus pesan otomatis setelah 10 detik).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.reply('Pesan ini akan terhapus dalam 5 detik...').then((msg) => { setTimeout(() => { ctx.deleteMessage(msg.message_id); }, 5000); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#370</div>
+            <div class="command"><span>JS</span>ctx.message.text.match(/\d+/g)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Ekstraksi otomatis untuk memilah dan mengambil karakter angka saja dari kumpulan teks chat mentah yang dikirim oleh user.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const angka = ctx.message.text.match(/\d+/g); if(angka) ctx.reply(`Nominal Angka yang terdeteksi: ${angka.join('')}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#371</div>
+            <div class="command"><span>JS</span>Object.keys(produk).length</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghitung total item atau produk digital yang tersedia di dalam objek konfigurasi JSON toko Anda untuk ditampilkan pada menu statistik.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const listTopup = { ff: 1000, ml: 2000 }; ctx.reply(`Saat ini kami menyediakan ${Object.keys(listTopup).length} jenis game.`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#372</div>
+            <div class="command"><span>JS</span>JSON.stringify(data, null, 2)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah objek database menjadi format string JSON rapi ber-indentasi. Sangat krusial untuk fitur backup database otomatis via chat owner.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const config = { botName: 'XTR' }; ctx.reply(`<code>${JSON.stringify(config, null, 2)}</code>`, { parse_mode: 'HTML' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#373</div>
+            <div class="command"><span>JS</span>new Intl.NumberFormat('id-ID')</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah angka nominal mentah menjadi susunan format mata uang Rupiah secara otomatis (menambahkan titik desimal ribuan).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const formatRupiah = (angka) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); ctx.reply(`Total: ${formatRupiah(50000)}`); // Hasil: Rp 50.000</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#374</div>
+            <div class="command"><span>JS</span>fs.writeFileSync('./db.json', ...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyimpan data string JSON secara langsung ke dalam file penyimpanan lokal (file system). Sangat vital untuk backup database instan tanpa database eksternal.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const fs = require('fs'); fs.writeFileSync('./database.json', JSON.stringify(data, null, 2)); ctx.reply('Database berhasil diamankan!');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#375</div>
+            <div class="command"><span>JS</span>JSON.parse(fs.readFileSync('./db.json'))</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membaca dan mengubah kembali file text JSON lokal menjadi objek JavaScript yang siap diolah untuk mengecek saldo atau data user.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const db = JSON.parse(fs.readFileSync('./database.json', 'utf-8')); console.log(`Total user terdaftar: ${db.users.length}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#376</div>
+            <div class="command"><span>JS</span>axios.get('https://api.com/qris/...')</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melakukan HTTP GET request menggunakan library Axios untuk mengambil data real-time, seperti mengecek status mutasi pembayaran QRIS atau saldo API reseller.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const axios = require('axios'); axios.get('https://api.winzstore.com/v1/status').then(res => ctx.reply(`Status API: ${res.data.status}`));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#377</div>
+            <div class="command"><span>JS</span>axios.post('https://api.com/order', { ... })</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengirimkan data payload (HTTP POST) ke server pihak ketiga (API Otomatisasi Game/Top-up) untuk menembak pesanan secara instan setelah pembayaran valid.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>axios.post('https://vip-reseller.com/api', { key: '123', produk: 'FF140' }).then(res => ctx.reply('Pesanan sukses diproses vendor!'));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#378</div>
+            <div class="command"><span>JS</span>try { ... } catch (error) { ... }</div>
+            <div class="description">
+                Struktur block penanganan error lokal (asynchronous) untuk membungkus proses integrasi API agar jika terjadi kegagalan koneksi jaringan, bot tidak mengalami crash.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>try { const res = await axios.get('URL'); ctx.reply('Sukses'); } catch (err) { ctx.reply('Gagal menghubungi server API.'); }</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#379</div>
+            <div class="command"><span>JS</span>ctx.message.text.substring(6)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memotong string teks chat berdasarkan indeks karakter tertentu. Metode alternatif cepat untuk mengambil parameter teks setelah perintah command utama.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>// Jika user mengetik: /broadcast Halo Semua\nconst pesan = ctx.message.text.substring(11); ctx.reply(`Mengirim: ${pesan}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#380</div>
+            <div class="command"><span>JS</span>process.on('unhandledRejection', ...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Sistem pengaman core Node.js untuk menangkap error async (Promise rejection) yang tidak ter-handle di script agar server VPS tetap menyala kokoh.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>process.on('unhandledRejection', (reason, promise) => { console.error('Terdeteksi Error Rejection Tanpa Handle:', reason); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#381</div>
+            <div class="command"><span>JS</span>Array.prototype.find()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Fungsi pencarian array untuk mengambil satu data spesifik objek user atau produk digital dari barisan database lokal berdasarkan kriteria ID pencocokan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const user = dbUsers.find(u => u.id === ctx.from.id); if (user) ctx.reply(`Sisa saldo Anda: ${user.saldo}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#382</div>
+            <div class="command"><span>JS</span>Array.prototype.filter()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyaring dan mengelompokkan barisan data berformat array (misal: mencari daftar seluruh riwayat transaksi yang berstatus 'PENDING' saja).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const pendingOrders = dbOrders.filter(o => o.status === 'PENDING'); ctx.reply(`Ada ${pendingOrders.length} antrian pesanan belum diproses.`);</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#383</div>
+            <div class="command"><span>JS</span>Array.prototype.map()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mentransformasi array data mentah menjadi format string baru. Sangat berguna untuk menyusun teks daftar harga (pricelist) produk toko secara otomatis.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const list = produk.map(p => `${p.nama} - Rp ${p.harga}`).join('\n'); ctx.reply(`🛒 PRICELIST STORE:\n\n${list}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#384</div>
+            <div class="command"><span>JS</span>bot.launch()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Perintah utama untuk mengeksekusi dan menyalakan bot Telegram secara resmi di server Node.js agar mulai menerima update pesan masuk.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.launch().then(() => console.log('🚀 Winz XTR Bot Berhasil Mengudara!'));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#385</div>
+            <div class="command"><span>JS</span>process.once('SIGINT', ...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Logika interupsi sistem untuk mematikan koneksi bot secara bersih (graceful shutdown) saat proses server di VPS dihentikan atau di-restart.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>process.once('SIGINT', () => bot.stop('SIGINT')); process.once('SIGTERM', () => bot.stop('SIGTERM'));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#386</div>
+            <div class="command"><span>JS</span>ctx.message.migrate_to_chat_id</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi migrasi ID grup ketika grup biasa ditingkatkan statusnya menjadi Supergroup oleh sistem Telegram, agar database grup bot tidak error.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('migrate_to_chat_id', (ctx) => { const newId = ctx.message.migrate_to_chat_id; console.log(`Grup migrasi ke ID baru: ${newId}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#387</div>
+            <div class="command"><span>JS</span>ctx.message.successful_payment</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap objek event data payment ketika proses transaksi pembayaran menggunakan Telegram Stars atau invoice resmi dinyatakan sukses dan beres.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('successful_payment', (ctx) => { ctx.reply(`🎉 Terima kasih! Pembayaran senilai ${ctx.message.successful_payment.total_amount} Stars sukses.`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#388</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatPhoto(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah gambar profil (avatar) dari suatu grup atau channel secara otomatis via perintah bot menggunakan file lokal atau buffer gambar.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setChatPhoto(ctx.chat.id, { source: './media/new_logo.png' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#389</div>
+            <div class="command"><span>JS</span>ctx.telegram.deleteChatPhoto(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus foto profil utama yang sedang terpasang pada ruang obrolan grup/channel secara instan lewat kendali bot admin.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.deleteChatPhoto(ctx.chat.id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#390</div>
+            <div class="command"><span>JS</span>ctx.replyWithMarkdownV2(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut kustom untuk mengirimkan pesan teks dengan format gaya MarkdownV2 yang mendukung style teks tebal, miring, spoiler, dan inline code.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithMarkdownV2('*Teks Tebal* dan ||Ini Spoiler||');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#391</div>
+            <div class="command"><span>JS</span>encodeURIComponent(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengamankan string teks parameter url (seperti nama pembeli atau catatan invoice) agar karakter uniknya tidak merusak tautan link pembayaran otomatis.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const link = `https://invoice.winz.com?name=${encodeURIComponent('Winz Official & Co')}`;</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#392</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatPermissions(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengatur hak akses global bagi seluruh anggota biasa di dalam grup (misal: mematikan fitur kirim media atau mengunci chat massal).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setChatPermissions(ctx.chat.id, { can_send_messages: false }); // Mute grup</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#393</div>
+            <div class="command"><span>JS</span>ctx.telegram.banChatSenderChat(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memblokir channel atau grup lain yang menyamar sebagai akun personal agar tidak bisa mengirimkan pesan chat di dalam grup Anda.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.banChatSenderChat(ctx.chat.id, SENDER_CHAT_ID);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#394</div>
+            <div class="command"><span>JS</span>ctx.telegram.unbanChatSenderChat(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka kembali blokir hak akses kirim pesan untuk channel/grup anonim yang sebelumnya telah dilarang masuk grup.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.unbanChatSenderChat(ctx.chat.id, SENDER_CHAT_ID);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#395</div>
+            <div class="command"><span>JS</span>ctx.webAppData</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil kiriman data objek terenkripsi yang dikirim secara aman langsung dari dalam Mini App ke ruang obrolan bot.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('web_app_data', (ctx) => { ctx.reply(`Data dari Mini App: ${ctx.webAppData.data}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#396</div>
+            <div class="command"><span>JS</span>ctx.createChatSubscriptionInviteLink(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat link undangan grup/channel premium berbasis langganan bulanan yang otomatis memotong saldo Telegram Stars user.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.createChatSubscriptionInviteLink(10, { subscription_period: 2592000 }); // Langganan 30 hari</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#397</div>
+            <div class="command"><span>JS</span>ctx.telegram.setCustomTitle(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah label nama jabatan admin kustom (custom title badge) milik seorang pengurus grup agar terlihat lebih profesional (misal: 'Owner', 'Admin Topup').<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setCustomTitle(ctx.chat.id, ctx.from.id, 'Founder XTR');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#398</div>
+            <div class="command"><span>JS</span>ctx.telegram.getBusinessConnection(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil info detail metadata dari status akun Telegram Business yang saat ini sedang ditautkan dengan sistem bot Anda.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getBusinessConnection(CONNECTION_ID).then(res => console.log(res));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#399</div>
+            <div class="command"><span>JS</span>process.env.NODE_ENV === 'production'</div>
+            <div class="divider"></div>
+            <div class="description">
+                Logika seleksi kondisi runtime untuk memisahkan mode testing (polling local) dengan mode server production (webhook) di Vercel/VPS.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>if (process.env.NODE_ENV === 'production') { bot.launch(webhookOptions); } else { bot.launch(); }</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#400</div>
+            <div class="command"><span>JS</span>ctx.reply('🏁 BANK DATA SELESAI')</div>
+            <div class="divider"></div>
+            <div class="description">
+                Titik puncak penutup data. Seluruh fungsionalitas core API, handling server, validasi owner, serta otomasi payment genap 400 kartu.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.reply('Selamat! Dashboard Kamus Referensi Coding Telegraf Anda telah rampung 100%.');</code>
+            </div>
+        </div>
+
+    
