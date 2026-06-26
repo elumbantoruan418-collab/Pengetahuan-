@@ -2637,3 +2637,1558 @@ my-telegram-bot/
             </div>
         </div>
         
+
+            <div class="card">
+            <div class="badge">#210</div>
+            <div class="command"><span>JS</span>ctx.scene.enter('ID_SCENE')</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memasukkan pengguna ke dalam sebuah Scene (alur percakapan terisolasi). Sangat penting untuk membuat form order bertahap.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.scene.enter('FORM_TOPUP_SCENE');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#211</div>
+            <div class="command"><span>JS</span>ctx.scene.leave()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memaksa pengguna keluar dari alur Scene yang sedang berjalan saat itu dan mengembalikan mereka ke interaksi bot normal.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.reply('Transaksi dibatalkan.').then(() => ctx.scene.leave());</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#212</div>
+            <div class="command"><span>JS</span>ctx.wizard.next()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melompati alur percakapan ke tahapan/langkah berikutnya di dalam struktur `WizardScene`. Pengatur alur form otomatis.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.reply('ID Game valid. Sekarang masukkan nominal top-up:'); return ctx.wizard.next();</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#213</div>
+            <div class="command"><span>JS</span>ctx.wizard.back()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengembalikan pengguna ke satu langkah (step) sebelumnya di dalam `WizardScene` jika input yang mereka masukkan salah.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.reply('Format salah! Masukkan ulang nomor HP Anda:'); return ctx.wizard.back();</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#214</div>
+            <div class="command"><span>JS</span>ctx.wizard.selectStep(index)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melompat secara bebas ke indeks langkah tertentu di dalam Wizard tanpa harus mengikuti urutan `next()` atau `back()`.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.wizard.selectStep(0); // Kembali paksa ke langkah pertama form</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#215</div>
+            <div class="command"><span>JS</span>ctx.scene.session.state</div>
+            <div class="divider"></div>
+            <div class="description">
+                Objek penyimpanan data sementara yang hanya hidup selama pengguna berada di dalam Scene tersebut. Data hilang saat scene ditinggalkan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.scene.session.state.nominal = ctx.message.text; // Menyimpan input nominal ke state scene</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#216</div>
+            <div class="command"><span>JS</span>ctx.callbackQuery.data</div>
+            <div class="divider"></div>
+            <div class="description">
+                Properti untuk mengambil string data yang dikirimkan oleh tombol `InlineKeyboardMarkup` ketika tombol tersebut diklik.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const dataTombol = ctx.callbackQuery.data; console.log(`User menekan tombol dengan callback: ${dataTombol}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#217</div>
+            <div class="command"><span>JS</span>ctx.session</div>
+            <div class="divider"></div>
+            <div class="description">
+                Objek session global per-user yang persisten. Sangat cocok untuk menyimpan status login, keranjang belanja, atau saldo sementara.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.session.userBalance = (ctx.session.userBalance || 0) + 5000;</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#218</div>
+            <div class="command"><span>JS</span>ctx.me</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut cepat pada context untuk membaca informasi profil bot kamu sendiri (ID, username, nama) tanpa perlu memanggil `getMe()`.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>console.log(`Pesan diproses oleh bot: @${ctx.me.username}`);</code>
+            </div>
+        </div>
+
+
+            <div class="card">
+            <div class="badge">#219</div>
+            <div class="command"><span>JS</span>ctx.getChatAdministrators()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengambil daftar lengkap administrator di grup saat ini beserta tingkatan status hak akses mereka.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.getChatAdministrators().then((admins) => { const listAdmin = admins.map(a => a.user.username); ctx.reply(`Admin grup: ${listAdmin.join(', ')}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#220</div>
+            <div class="command"><span>JS</span>ctx.getChatMember(userId)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengecek informasi spesifik seorang anggota di grup (apakah dia admin, member biasa, atau sudah di-ban).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.getChatMember(ctx.from.id).then((member) => { if (member.status === 'administrator' || member.status === 'creator') { ctx.reply('Akses menu admin diterima.'); } });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#221</div>
+            <div class="command"><span>JS</span>ctx.setChatTitle(title)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengubah nama judul grup secara instan (bot wajib memiliki hak akses sebagai administrator grup).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.setChatTitle('Winz Store - Hub Utama').then(() => ctx.reply('Nama grup berhasil diperbarui!'));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#222</div>
+            <div class="command"><span>JS</span>ctx.setChatDescription(desc)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengubah teks deskripsi/tentang (about) pada info profil grup tempat perintah dipanggil.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.setChatDescription('Grup resmi transaksi top-up game otomatis @Winz_ofcial.');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#223</div>
+            <div class="command"><span>JS</span>ctx.pinChatMessage(messageId)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk menyematkan (pin) sebuah pesan di dalam obrolan saat ini tanpa perlu memanggil method `telegram` global.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.pinChatMessage(ctx.message.message_id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#224</div>
+            <div class="command"><span>JS</span>ctx.unpinChatMessage(messageId)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk melepas sematan (unpin) pesan tertentu di dalam grup atau ruang chat private secara cepat.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.unpinChatMessage(ctx.message.message_id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#225</div>
+            <div class="command"><span>JS</span>ctx.leaveChat()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context yang memerintahkan bot untuk keluar secara mandiri (leave group) dari grup atau channel saat ini.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>if (grupDilarang) { ctx.reply('Grup ini tidak terdaftar!').then(() => ctx.leaveChat()); }</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#226</div>
+            <div class="command"><span>JS</span>ctx.inlineQuery.query</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil teks kueri yang sedang diketik oleh pengguna saat memicu bot dalam mode inline (mengetik @usernamebot di kolom chat).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const keyword = ctx.inlineQuery.query; console.log(`User sedang mencari produk inline: ${keyword}`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#227</div>
+            <div class="command"><span>JS</span>ctx.answerInlineQuery([ ... ])</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan daftar hasil pencarian berupa list artikel, produk, atau gambar ke menu inline user.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.answerInlineQuery([{ type: 'article', id: 'p1', title: 'Price List', input_message_content: { message_text: 'Daftar Harga MLBB...' } }]);</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#228</div>
+            <div class="command"><span>JS</span>ctx.chosenInlineResult.result_id</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil ID dari hasil produk/artikel inline yang diklik atau dipilih oleh user. Berguna untuk statistik produk terlaris di menu inline.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('chosen_inline_result', (ctx) => { console.log(`Produk ID yang dibeli via inline: ${ctx.chosenInlineResult.result_id}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#229</div>
+            <div class="command"><span>JS</span>ctx.webAppData.data.json()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengekstrak dan mengubah string data mentah yang dikirim dari Telegram Mini App (Web App) menjadi objek JavaScript (JSON) utuh.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('web_app_data', (ctx) => { const order = ctx.webAppData.data.json(); ctx.reply(`Pesanan ${order.item} seharga Rp${order.price} diterima!`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#230</div>
+            <div class="command"><span>JS</span>ctx.shippingQuery.invoice_payload</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil data payload internal dari invoice saat user menekan tombol checkout (Invoice manual/otomatis) untuk memverifikasi lokasi pengiriman.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('shipping_query', (ctx) => { console.log(`Payload Invoice: ${ctx.shippingQuery.invoice_payload}`); ctx.answerShippingQuery(true); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#231</div>
+            <div class="command"><span>JS</span>ctx.preCheckoutQuery.id</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil ID unik dari query pre-checkout. Tahap krusial ini wajib dijawab dalam waktu 10 detik agar transaksi pembayaran user sukses.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('pre_checkout_query', (ctx) => { ctx.answerPreCheckoutQuery(true).then(() => console.log('Pembayaran divalidasi!')); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#232</div>
+            <div class="command"><span>JS</span>ctx.message.successful_payment</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap objek data pembayaran yang berhasil dilakukan oleh user (termasuk nominal, mata uang, dan nomor referensi transaksi).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('successful_payment', (ctx) => { const info = ctx.message.successful_payment; ctx.reply(`Sukses! Saldo XTR/Stars senilai ${info.total_amount} berhasil masuk.`); }); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#233</div>
+            <div class="command"><span>JS</span>ctx.getChat()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengambil informasi profil obrolan super mendalam (seperti foto grup, username channel, hingga deskripsi lengkap).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.getChat().then((chatInfo) => { console.log(`Bio/Deskripsi Obrolan: ${chatInfo.description || 'Kosong'}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#234</div>
+            <div class="command"><span>JS</span>ctx.state</div>
+            <div class="divider"></div>
+            <div class="description">
+                Objek kosong bawaan Telegraf yang digunakan untuk mengoper data antar-middleware dalam satu siklus request pesan yang sama.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>// Middleware 1<br>bot.use((ctx, next) => { ctx.state.isAdmin = true; return next(); });<br>// Middleware 2 / Command<br>bot.command('panel', (ctx) => { if(ctx.state.isAdmin) ctx.reply('Welcome Admin!'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#235</div>
+            <div class="command"><span>JS</span>ctx.replyWithMarkdownV2(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan pesan menggunakan format teks MarkdownV2. Sangat ketat terhadap karakter khusus (wajib di-escape).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithMarkdownV2('*Teks Tebal* dan __Teks Garis Bawah__');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#236</div>
+            <div class="command"><span>JS</span>ctx.respond(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Fungsi respons internal Telegraf yang fleksibel. Secara otomatis memutuskan apakah akan mengirim via webhook response atau network call biasa.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.respond('Aksi diproses tanpa lag!');</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#237</div>
+            <div class="command"><span>JS</span>ctx.telegram.sendInvoice(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengirimkan sebuah kartu tagihan (invoice) pembayaran resmi menggunakan sistem gateway Telegram, termasuk pembayaran via Telegram Stars (XTR).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.sendInvoice(ctx.chat.id, { title: 'Top-Up 100 Diamond', description: 'Beli diamond MLBB via Winz Store', payload: 'order_id_10293', provider_token: '', currency: 'XTR', prices: [{ label: 'Diamond', amount: 100 }] });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#238</div>
+            <div class="command"><span>JS</span>ctx.businessMessage</div>
+            <div class="divider"></div>
+            <div class="description">
+                Objek properti untuk menangkap data pesan baru yang masuk melalui akun Telegram Business yang terhubung dengan bot Anda.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('business_message', (ctx) => { console.log(`Pesan masuk di chat bisnis ID: ${ctx.businessMessage.chat.id}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#239</div>
+            <div class="command"><span>JS</span>ctx.editedBusinessMessage</div>
+            <div class="divider"></div>
+            <div class="description">
+                Objek properti untuk mendeteksi perubahan atau pengeditan pesan yang dilakukan oleh pelanggan/pemilik di obrolan Telegram Business.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('edited_business_message', (ctx) => { console.log(`Pesan bisnis diedit menjadi: ${ctx.editedBusinessMessage.text}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#240</div>
+            <div class="command"><span>JS</span>ctx.deleteChatPhoto()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk menghapus foto profil grup atau channel saat ini secara instan (bot harus menjadi admin dengan hak ganti info).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.deleteChatPhoto().then(() => ctx.reply('Foto profil grup telah dihapus.'));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#241</div>
+            <div class="command"><span>JS</span>ctx.setChatPhoto(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk memperbarui atau mengganti foto profil grup/channel secara langsung menggunakan file lokal atau buffer stream.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.setChatPhoto({ source: './assets/logo_baru.png' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#242</div>
+            <div class="command"><span>JS</span>ctx.setChatPermissions(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengatur batasan hak akses global seluruh anggota grup secara langsung (seperti mematikan fitur kirim stiker/media).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.setChatPermissions({ can_send_messages: true, can_send_media_messages: false }); // Kunci pengiriman media</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#243</div>
+            <div class="command"><span>JS</span>ctx.createChatInviteLink(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk membuat tautan undangan (invite link) kustom baru untuk grup dengan masa kedaluwarsa atau batas jumlah anggota.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.createChatInviteLink({ name: 'Link Promo Jb', member_limit: 50 }).then((link) => { ctx.reply(`Link undangan baru: ${link.invite_link}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#244</div>
+            <div class="command"><span>JS</span>ctx.revokeChatInviteLink(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mencabut atau menonaktifkan link undangan yang sudah dibuat sebelumnya agar tidak bisa dipakai lagi.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.revokeChatInviteLink('TAUTAN_URL_YANG_MAU_DICABUT');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#245</div>
+            <div class="command"><span>JS</span>ctx.message.chat_shared</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap objek data dari tombol interaktif `KeyboardButtonRequestChat` saat user membagikan/memilih grup atau channel tertentu ke bot.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('chat_shared', (ctx) => { const sharedChatId = ctx.message.chat_shared.chat_id; ctx.reply(`ID Grup/Channel yang Anda pilih: ${sharedChatId}`); });</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#246</div>
+            <div class="command"><span>JS</span>ctx.message.user_shared</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap objek data dari tombol `KeyboardButtonRequestUsers` saat user membagikan/memilih kontak pengguna lain ke dalam bot.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('user_shared', (ctx) => { const targetUserId = ctx.message.user_shared.user_id; ctx.reply(`ID Pengguna yang Anda pilih: ${targetUserId}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#247</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatMenuButton(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah tombol menu bawaan di pojok kiri bawah kolom chat (samping input teks) menjadi tombol khusus untuk membuka Web App/Mini App.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setChatMenuButton({ chat_id: ctx.chat.id, menu_button: { type: 'web_app', text: 'Buka Toko', web_app: { url: 'https://winzstore.com' } } });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#248</div>
+            <div class="command"><span>JS</span>ctx.telegram.getChatMenuButton(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil status dan konfigurasi tombol menu chat saat ini untuk memeriksa link Web App apa yang sedang aktif terpasang.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getChatMenuButton({ chat_id: ctx.chat.id }).then((btn) => { console.log(`Tipe tombol aktif: ${btn.type}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#249</div>
+            <div class="command"><span>JS</span>ctx.setGameScore(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk memperbarui atau menginput skor tertinggi (high score) pengguna di dalam game HTML5 bawaan bot Telegram.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.setGameScore(9950).then(() => ctx.reply('Skor game terbaru Anda berhasil disimpan!'));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#250</div>
+            <div class="command"><span>JS</span>ctx.getGameHighScores()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengambil barisan data tabel klasemen/papan skor (leaderboard) game dari obrolan saat ini.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.getGameHighScores().then((scores) => { console.log(`Skor tertinggi diraih oleh ID: ${scores[0].user.id}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#251</div>
+            <div class="command"><span>JS</span>ctx.approveChatJoinRequest(userId)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk langsung menyetujui (auto-acc) permintaan bergabung pengguna yang masuk lewat link undangan ber-filter/approval.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('chat_join_request', (ctx) => { ctx.approveChatJoinRequest(ctx.from.id); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#252</div>
+            <div class="command"><span>JS</span>ctx.declineChatJoinRequest(userId)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk menolak permintaan bergabung pengguna yang mencoba masuk ke dalam grup/channel via link approval.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('chat_join_request', (ctx) => { ctx.declineChatJoinRequest(ctx.from.id); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#253</div>
+            <div class="command"><span>JS</span>ctx.replyWithInvoice(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context paling ringkas untuk mengirimkan tagihan pembayaran (Invoice Stars/XTR) langsung ke dalam ruang obrolan saat ini.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithInvoice({ title: 'Akses VIP', description: 'Grup premium', payload: 'vip_1', provider_token: '', currency: 'XTR', prices: [{ label: 'Stars', amount: 50 }] });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#254</div>
+            <div class="command"><span>JS</span>ctx.telegram.logOut()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memutuskan hubungan bot dengan server lokal Bot API sebelum berpindah ke server lain (sangat jarang dipakai, tapi vital untuk cloud migration).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.telegram.logOut().then(() => console.log('Bot berhasil logout aman dari server lokal.'));</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#255</div>
+            <div class="command"><span>JS</span>ctx.telegram.close()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menutup paksa instance bot dari bot API server lokal sebelum mematikan aplikasi Node.js Anda untuk mencegah kebocoran memori.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.telegram.close().then(() => { process.exit(0); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#256</div>
+            <div class="command"><span>JS</span>ctx.replyWithDice(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan animasi dadu acak atau mini-game bawaan Telegram (Dadu, Dart, Basket, Slot Machine, Bola).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithDice({ emoji: '🎰' }).then((res) => { console.log(`Skor slot yang keluar: ${res.dice.value}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#257</div>
+            <div class="command"><span>JS</span>ctx.banChatMember(..., { revoke_messages: true })</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memblokir pengguna dari grup sekaligus menghapus secara massal seluruh riwayat pesan yang pernah dikirim oleh pengguna tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.banChatMember(ctx.from.id, { revoke_messages: true });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#258</div>
+            <div class="command"><span>JS</span>ctx.telegram.setMyName(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah nama tampilan (display name) bot Anda secara langsung melalui baris kode JavaScript tanpa perlu masuk ke @BotFather.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setMyName('Winz Store Premium');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#259</div>
+            <div class="command"><span>JS</span>ctx.telegram.setMyDescription(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah teks deskripsi utama bot (teks yang muncul di layar chat kosong sebelum pengguna menekan tombol /start).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setMyDescription('Bot Otomatisasi Top-up Game & Produk Digital Tercepat.');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#260</div>
+            <div class="command"><span>JS</span>ctx.telegram.setMyShortDescription(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah bio singkat bot Anda yang muncul di halaman profil informasi akun ketika pengguna melihat info bot.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setMyShortDescription('Powered by @Winz_ofcial');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#261</div>
+            <div class="command"><span>JS</span>ctx.telegram.getMyName()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil nama tampilan bot saat ini untuk divalidasi ke sistem dashboard internal Anda.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getMyName().then((res) => { console.log(`Nama bot saat ini: ${res.name}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#262</div>
+            <div class="command"><span>JS</span>ctx.telegram.getMyDescription()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil informasi deskripsi utama bot yang sedang aktif terpasang di database Telegram.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getMyDescription().then((res) => { console.log(res.description); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#263</div>
+            <div class="command"><span>JS</span>ctx.telegram.getMyShortDescription()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil informasi bio singkat profil bot yang terdaftar untuk keperluan sinkronisasi data panel.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getMyShortDescription().then((res) => { console.log(res.short_description); });</code>
+            </div>
+        </div>
+
+
+            <div class="card">
+            <div class="badge">#264</div>
+            <div class="command"><span>JS</span>ctx.replyWithGame(gameShortName)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan kartu tautan game HTML5 yang sudah didaftarkan lewat @BotFather agar bisa dimainkan langsung di dalam chat.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithGame('winz_tetris');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#265</div>
+            <div class="command"><span>JS</span>ctx.telegram.setGameScore(userId, score, { ... })</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah atau memperbarui skor game pengguna secara global menggunakan instance `telegram` terpisah, ideal untuk sistem panel admin sinkron.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.telegram.setGameScore('12345678', 1500, { inline_message_id: 'XYZ123' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#266</div>
+            <div class="command"><span>JS</span>ctx.message.quote.text</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil teks spesifik yang diblok/dikutip (quote) oleh pengguna ketika mereka membalas pesan menggunakan fitur reply quote parsial.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>if (ctx.message.quote) { console.log(`User mengutip bagian: ${ctx.message.quote.text}`); }</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#267</div>
+            <div class="command"><span>JS</span>ctx.message.story</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap objek data kiriman Cerita (Story) Telegram jika ada pengguna atau channel yang meneruskan/membagikan cerita mereka ke bot.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('story', (ctx) => { ctx.reply(`ID Pemilik Cerita: ${ctx.message.story.chat.id}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#268</div>
+            <div class="command"><span>JS</span>ctx.telegram.getBusinessConnection(connectionId)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil informasi detail mengenai status tautan akun Telegram Business tertentu yang sedang dikelola oleh bot.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getBusinessConnection('conn_id_123').then((conn) => { console.log(`Status koneksi bisnis: ${conn.is_enabled}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#269</div>
+            <div class="command"><span>JS</span>ctx.message.boost_added</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi secara langsung di dalam room chat ketika ada anggota grup/channel yang baru saja mengaktifkan boost tambahan untuk grup tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>if (ctx.message.boost_added) { ctx.reply(`Terima kasih atas ${ctx.message.boost_added.boost_count} boost barunya!`); }</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#270</div>
+            <div class="command"><span>JS</span>ctx.telegram.setMyDescription({ language_code: 'id' })</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah deskripsi bot khusus untuk pengguna yang menggunakan bahasa tertentu (lokalisasi/multi-bahasa internasional).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setMyDescription('Selamat datang di toko kami!', { language_code: 'id' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#271</div>
+            <div class="command"><span>JS</span>ctx.message.pinned_message</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap seluruh isi data dari objek pesan yang baru saja disematkan (di-pin) di dalam grup/channel melalui event `pinned_message`.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('pinned_message', (ctx) => { ctx.reply(`Pesan pin baru terdeteksi: ${ctx.message.pinned_message.text}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#272</div>
+            <div class="command"><span>JS</span>ctx.telegram.getCustomEmojiStickers([ ... ])</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil metadata lengkap dari koleksi emoji kustom (termasuk format animasi) langsung dari server Telegram berdasarkan ID uniknya.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getCustomEmojiStickers(['543210987654321']).then((res) => { console.log(res[0].sticker_set_name); });</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#273</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatStickerSet(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memasang sebuah sticker pack khusus secara paksa agar menjadi sticker pack resmi milik grup tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setChatStickerSet(ctx.chat.id, 'NamaStickerPack');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#274</div>
+            <div class="command"><span>JS</span>ctx.telegram.deleteChatStickerSet(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus atau melepas sticker pack resmi yang sebelumnya dikunci/ditempelkan pada grup obrolan tertentu.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.deleteChatStickerSet(ctx.chat.id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#275</div>
+            <div class="command"><span>JS</span>ctx.message.new_chat_title</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap string nama judul baru grup ketika ada admin atau user yang mengganti nama grup tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('new_chat_title', (ctx) => { ctx.reply(`Nama grup diganti menjadi: ${ctx.message.new_chat_title}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#276</div>
+            <div class="command"><span>JS</span>ctx.message.new_chat_photo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi event pergantian foto profil grup dan mengambil barisan file_id dari foto profil baru tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('new_chat_photo', (ctx) => { console.log('Foto profil grup telah diperbarui dengan file baru.'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#277</div>
+            <div class="command"><span>JS</span>ctx.message.delete_chat_photo</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi jika ada tindakan penghapusan foto profil grup atau saluran oleh salah satu pengelola obrolan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('delete_chat_photo', (ctx) => { ctx.reply('Seseorang baru saja menghapus foto profil grup ini.'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#278</div>
+            <div class="command"><span>JS</span>ctx.message.group_chat_created</div>
+            <div class="divider"></div>
+            <div class="description">
+                Event yang terpicu saat sebuah grup obrolan baru pertama kali dibuat dan bot terpasang di dalamnya sebagai anggota awal.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('group_chat_created', (ctx) => { ctx.reply('Terima kasih telah membuat grup ini bersama saya!'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#279</div>
+            <div class="command"><span>JS</span>ctx.message.supergroup_chat_created</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi ketika grup biasa berhasil dimigrasikan atau ditingkatkan statusnya menjadi sebuah Supergroup di server Telegram.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('supergroup_chat_created', (ctx) => { console.log('Grup ini sekarang resmi menjadi Supergroup.'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#280</div>
+            <div class="command"><span>JS</span>ctx.message.migrate_to_chat_id</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil ID supergroup baru ketika sebuah grup biasa melakukan migrasi penuh. Vital untuk memperbarui ID grup di database Anda.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('migrate_to_chat_id', (ctx) => { const newId = ctx.message.migrate_to_chat_id; db.updateGrupId(ctx.chat.id, newId); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#281</div>
+            <div class="command"><span>JS</span>ctx.message.migrate_from_chat_id</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil ID lama (grup biasa) dari sisi context grup baru setelah migrasi supergroup selesai dilakukan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('migrate_from_chat_id', (ctx) => { console.log(`Grup baru ini berasal dari ID lawas: ${ctx.message.migrate_from_chat_id}`); });</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#282</div>
+            <div class="command"><span>JS</span>ctx.message.proximity_alert_triggered</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi ketika dua pengguna yang sedang membagikan lokasi langsung (Live Location) saling mendekat dalam radius jarak tertentu.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('proximity_alert_triggered', (ctx) => { const alert = ctx.message.proximity_alert_triggered; ctx.reply(`${alert.traveler.first_name} kini berjarak ${alert.distance} meter dari ${alert.watcher.first_name}!`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#283</div>
+            <div class="command"><span>JS</span>ctx.message.forum_topic_created</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap data properti (nama sub-forum, warna ikon) saat ada sebuah topik obrolan baru dibuat di dalam grup bertipe Forum.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('forum_topic_created', (ctx) => { console.log(`Topik baru dibuat: ${ctx.message.forum_topic_created.name}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#284</div>
+            <div class="command"><span>JS</span>ctx.message.forum_topic_edited</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi perubahan nama topik atau pembaruan ikon emoji kustom pada sub-forum di dalam supergroup.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('forum_topic_edited', (ctx) => { ctx.reply(`Topik forum telah diubah menjadi: ${ctx.message.forum_topic_edited.name}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#285</div>
+            <div class="command"><span>JS</span>ctx.message.forum_topic_closed</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi ketika suatu topik forum ditutup oleh moderator sehingga anggota grup tidak bisa mengirimkan pesan lagi di sana.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('forum_topic_closed', (ctx) => { console.log('Satu topik forum resmi ditutup.'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#286</div>
+            <div class="command"><span>JS</span>ctx.message.forum_topic_reopened</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi dibukanya kembali topik forum yang sebelumnya berstatus ditutup (closed) oleh jajaran pengelola grup.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('forum_topic_reopened', (ctx) => { ctx.reply('Topik ini telah dibuka kembali untuk diskusi umum.'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#287</div>
+            <div class="command"><span>JS</span>ctx.message.video_chat_started</div>
+            <div class="divider"></div>
+            <div class="description">
+                Event yang otomatis terpicu di dalam grup ketika sesi obrolan video (Video Chat / Voice Chat) resmi dimulai oleh admin.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('video_chat_started', (ctx) => { ctx.reply('Sesi Video Chat grup telah aktif! Yuk bergabung.'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#288</div>
+            <div class="command"><span>JS</span>ctx.message.video_chat_ended</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap event selesainya sesi video chat grup beserta total durasi waktu (dalam detik) berjalannya obrolan tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('video_chat_ended', (ctx) => { console.log(`Video chat berakhir. Durasi: ${ctx.message.video_chat_ended.duration} detik.`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#289</div>
+            <div class="command"><span>JS</span>ctx.message.video_chat_participants_invited</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi daftar user baru yang diundang/ditarik secara manual oleh admin untuk masuk ke dalam panggilan video chat grup.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('video_chat_participants_invited', (ctx) => { const total = ctx.message.video_chat_participants_invited.users.length; ctx.reply(`${total} user baru diundang ke obrolan suara.`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#290</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatStickerSet(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengikat sebuah pack stiker kustom tertentu ke grup agar menjadi pilihan stiker utama bagi seluruh anggota di dalam obrolan tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setChatStickerSet(ctx.chat.id, 'StickerPackWinzStore');</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#291</div>
+            <div class="command"><span>JS</span>ctx.message.users_shared.user_ids</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil daftar susunan array ID dari seluruh pengguna yang dipilih secara massal oleh user melalui tombol multi-share.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const listUser = ctx.message.users_shared.user_ids; ctx.reply(`Anda memilih ${listUser.length} akun untuk dimasukkan ke daftar.`);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#292</div>
+            <div class="command"><span>JS</span>ctx.telegram.createForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Perintah instan untuk membuat sebuah sub-forum/topik baru di dalam supergroup yang telah mengaktifkan fitur topics.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.createForumTopic(ctx.chat.id, 'Testimoni & Bukti', { icon_custom_emoji_id: '543210' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#293</div>
+            <div class="command"><span>JS</span>ctx.telegram.editForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah nama judul atau mengganti jenis emoji ikon dari sebuah topik forum yang sudah ada berdasarkan ID topiknya.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.editForumTopic(ctx.chat.id, 12345, { name: 'Restock Akun Baru' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#294</div>
+            <div class="command"><span>JS</span>ctx.telegram.closeForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengunci sub-topik tertentu di dalam forum agar seluruh member tidak bisa mengirim chat lagi di sub-topik tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.closeForumTopic(ctx.chat.id, 12345);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#295</div>
+            <div class="command"><span>JS</span>ctx.telegram.reopenForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka kembali sub-topik forum yang sebelumnya dikunci/ditutup agar member bisa kembali berdiskusi secara normal.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.reopenForumTopic(ctx.chat.id, 12345);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#296</div>
+            <div class="command"><span>JS</span>ctx.telegram.deleteForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus sub-topik forum secara permanen dari supergroup beserta seluruh riwayat chat yang ada di dalam topik tersebut.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.deleteForumTopic(ctx.chat.id, 12345);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#297</div>
+            <div class="command"><span>JS</span>ctx.telegram.unpinAllForumTopicMessages(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melepas seluruh sematan pesan (unpin massal) yang menempel khusus pada sub-topik forum tertentu secara sekaligus.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.unpinAllForumTopicMessages(ctx.chat.id, 12345);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#298</div>
+            <div class="command"><span>JS</span>ctx.telegram.getForumTopicIconStickers()</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil kumpulan stiker resmi dari server Telegram yang dapat digunakan sebagai kustomisasi ikon pelengkap sub-forum.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getForumTopicIconStickers().then((stickers) => { console.log(`Total ikon tersedia: ${stickers.length}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#299</div>
+            <div class="command"><span>JS</span>ctx.message.message_thread_id</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil nomor ID dari thread/sub-forum tempat chat masuk saat ini. Esensial jika bot ingin membalas tepat di topik yang sama.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>const idTopik = ctx.message.message_thread_id; if(idTopik) { ctx.reply('Pesan dibalas di dalam topik ini.', { message_thread_id: idTopik }); }</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#300</div>
+            <div class="command"><span>JS</span>ctx.telegram.setGeneralForumTopicName(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah nama default topik utama bawaan Telegram (yang biasanya bernama "General" atau "Umum") menjadi nama kustom pilihan Anda.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setGeneralForumTopicName(ctx.chat.id, 'Obrolan Utama Winz');</code>
+            </div>
+        </div>
+
+
+            <div class="card">
+            <div class="badge">#301</div>
+            <div class="command"><span>JS</span>ctx.telegram.closeGeneralForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengunci topik umum/"General" bawaan grup forum agar seluruh anggota tidak bisa mengirimkan chat di sana dan terfokus pada sub-forum kustom.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.closeGeneralForumTopic(ctx.chat.id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#302</div>
+            <div class="command"><span>JS</span>ctx.telegram.reopenGeneralForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuka kembali topik utama/"General" yang sebelumnya dikunci agar member bisa kembali mengirimkan pesan secara normal.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.reopenGeneralForumTopic(ctx.chat.id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#303</div>
+            <div class="command"><span>JS</span>ctx.telegram.hideGeneralForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyembunyikan topik utama/"General" dari daftar tampilan tab forum untuk seluruh anggota grup (hanya menyisakan sub-forum buatan).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.hideGeneralForumTopic(ctx.chat.id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#304</div>
+            <div class="command"><span>JS</span>ctx.telegram.unhideGeneralForumTopic(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Memunculkan kembali topik utama/"General" grup forum yang sebelumnya sempat disembunyikan dari daftar tab obrolan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.unhideGeneralForumTopic(ctx.chat.id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#305</div>
+            <div class="command"><span>JS</span>ctx.message.giveaway_created</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi objek event ketika ada admin yang resmi membuat atau merilis sebuah program Giveaway hadiah premium/Stars di channel/grup.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('giveaway_created', (ctx) => { console.log('Giveaway resmi baru saja dibuat oleh pengelola saluran!'); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#306</div>
+            <div class="command"><span>JS</span>ctx.message.giveaway_winners</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap objek pengumuman hasil pemenang program giveaway resmi Telegram beserta total hadiah dan daftar user pemenangnya.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('giveaway_winners', (ctx) => { const info = ctx.message.giveaway_winners; ctx.reply(`Giveaway selesai! Total pemenang: ${info.winner_count}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#307</div>
+            <div class="command"><span>JS</span>ctx.message.giveaway_completed</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi status penyelesaian program giveaway yang dibuat, termasuk jumlah total hadiah hiburan atau pemenang yang tidak mengklaim.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('giveaway_completed', (ctx) => { console.log(`Sesi giveaway selesai dengan ID pesan asal: ${ctx.message.giveaway_completed.giveaway_message_id}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#308</div>
+            <div class="command"><span>JS</span>ctx.telegram.getUserChatBoosts(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil daftar boost aktif yang diberikan oleh seorang user spesifik terhadap grup/channel Anda untuk memverifikasi tier hadiah mereka.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getUserChatBoosts(ctx.chat.id, ctx.from.id).then((res) => { ctx.reply(`Anda telah melakukan boost sebanyak: ${res.boosts.length} kali.`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#309</div>
+            <div class="command"><span>JS</span>ctx.chatBoostUpdated</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap pembaruan status boost secara real-time pada context update, baik saat level boost grup bertambah maupun berkurang (kedaluwarsa).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('chat_boost', (ctx) => { console.log(`Status boost diperbarui oleh user ID: ${ctx.chatBoostUpdated.boost.source.user.id}`); });</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#310</div>
+            <div class="command"><span>JS</span>ctx.chatBoostRemoved</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap event spesifik saat masa aktif boost dari seorang pengguna telah habis atau dicabut dari grup/channel Anda.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('removed_chat_boost', (ctx) => { console.log(`Boost ID ${ctx.chatBoostRemoved.boost_id} telah kedaluwarsa.`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#311</div>
+            <div class="command"><span>JS</span>ctx.telegram.setMessageReaction(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut API untuk memberikan reaksi emoji (seperti 👍, 🔥, 🎉) secara otomatis ke pesan tertentu melalui bot.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setMessageReaction(ctx.chat.id, ctx.message.message_id, [{ type: 'emoji', emoji: '🔥' }]);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#312</div>
+            <div class="command"><span>JS</span>ctx.messageReaction</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi perubahan reaksi emoji yang diberikan atau diubah oleh pengguna pada suatu pesan di dalam obrolan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('message_reaction', (ctx) => { console.log(`User mengubah reaksi pada pesan ID: ${ctx.messageReaction.message_id}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#313</div>
+            <div class="command"><span>JS</span>ctx.messageReactionCount</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap update rangkuman jumlah total reaksi dari sebuah pesan jika reaksi pada pesan tersebut berubah secara masif/cepat.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('message_reaction_count', (ctx) => { console.log(`Total jenis reaksi aktif: ${ctx.messageReactionCount.reactions.length}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#314</div>
+            <div class="command"><span>JS</span>ctx.replyWithAnimation(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan file animasi berupa format GIF atau video singkat tanpa suara (MP4 tanpa audio stream).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithAnimation({ source: './media/sukses.gif' }, { caption: 'Transaksi Sukses!' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#315</div>
+            <div class="command"><span>JS</span>ctx.replyWithPaidMedia(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengirimkan media berbayar (foto/video bertanda buram/sensor) yang hanya bisa dibuka kuncinya jika user membayar sejumlah Telegram Stars.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithPaidMedia(10, [{ type: 'photo', media: { source: './premium/content.jpg' } }], { caption: 'Buka materi VIP' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#316</div>
+            <div class="command"><span>JS</span>ctx.message.paid_media</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap data objek media berbayar yang berhasil dibeli atau diterima di dalam ruang obrolan saat ini.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>if (ctx.message.paid_media) { console.log(`Total media berbayar terlampir: ${ctx.message.paid_media.stars} Stars`); }</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#317</div>
+            <div class="command"><span>JS</span>ctx.telegram.editMessageMedia(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah atau mengganti file media (foto/video/dokumen) pada pesan yang sudah terkirim tanpa perlu menghapus chat lamanya.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.editMessageMedia(ctx.chat.id, 12345, null, { type: 'photo', media: { source: './new_banner.png' }, caption: 'Banner Baru' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#318</div>
+            <div class="command"><span>JS</span>ctx.telegram.setMyDefaultAdministratorRights(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengonfigurasi hak akses default (permissions otomatis) yang akan langsung diminta bot ketika ia dimasukkan ke grup/channel baru.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setMyDefaultAdministratorRights({ rights: { can_delete_messages: true, can_restrict_members: true } });</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#319</div>
+            <div class="command"><span>JS</span>ctx.telegram.getMyDefaultAdministratorRights(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil konfigurasi hak akses default admin yang saat ini terdaftar untuk bot ketika bergabung ke dalam grup/channel.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getMyDefaultAdministratorRights().then((rights) => { console.log(rights); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#320</div>
+            <div class="command"><span>JS</span>ctx.chatMember</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendeteksi perubahan status keanggotaan bot secara real-time (misal ketika bot ditambahkan ke grup, dijadikan admin, atau ditendang).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('chat_member', (ctx) => { if (ctx.chatMember.new_chat_member.status === 'kicked') { console.log('Bot diblokir dari chat.'); } });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#321</div>
+            <div class="command"><span>JS</span>ctx.myChatMember</div>
+            <div class="divider"></div>
+            <div class="description">
+                Properti context yang khusus melacak perubahan status keanggotaan *akun bot itu sendiri* di dalam ruang percakapan manapun.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('my_chat_member', (ctx) => { console.log(`Status bot di chat ini berubah jadi: ${ctx.myChatMember.new_chat_member.status}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#322</div>
+            <div class="command"><span>JS</span>ctx.telegram.getStarTransactions(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil riwayat data transaksi Telegram Stars (XTR) yang masuk atau keluar dari akun bot Anda untuk keperluan audit finansial.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getStarTransactions({ offset: 0, limit: 10 }).then((history) => { console.log(`Total transaksi: ${history.transactions.length}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#323</div>
+            <div class="command"><span>JS</span>ctx.telegram.answerWebAppQuery(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengirimkan pesan inline atas nama user langsung dari sisi server setelah divalidasi oleh interaksi di dalam Telegram Mini App.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.answerWebAppQuery('QUERY_ID_DARI_MINI_APP', { type: 'article', id: '1', title: 'Sukses', input_message_content: { message_text: 'Pembayaran Valid!' } });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#324</div>
+            <div class="command"><span>JS</span>ctx.replyWithLocation(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan titik koordinat peta lokasi (latitude dan longitude) langsung ke dalam ruang obrolan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithLocation(-6.200000, 106.816666); // Lokasi Jakarta</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#325</div>
+            <div class="command"><span>JS</span>ctx.replyWithVenue(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan lokasi tempat spesifik yang mencakup nama gedung, alamat lengkap, beserta ID Foursquare/Google Maps.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithVenue(-6.200, 106.816, 'HQ Winz Project', 'Jl. Utama No. 10, Indonesia');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#326</div>
+            <div class="command"><span>JS</span>ctx.replyWithContact(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan data kartu nama kontak telepon formal ke dalam ruang obrolan target.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithContact('+628123456789', 'Winz', { last_name: 'Official' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#327</div>
+            <div class="command"><span>JS</span>ctx.telegram.getUserProfilePhotos(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil daftar barisan array file gambar profil dari seorang pengguna, lengkap dengan variasi ukuran dimensinya.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getUserProfilePhotos(ctx.from.id).then((photos) => { console.log(`User punya ${photos.total_count} foto profil.`); });</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#328</div>
+            <div class="command"><span>JS</span>ctx.telegram.sendPoll(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat dan mengirimkan sebuah jajak pendapat (polling) atau kuis pilihan ganda resmi langsung ke dalam grup/channel.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.sendPoll(ctx.chat.id, 'Pilih Game Favorit Anda:', ['Mobile Legends', 'Free Fire', 'Roblox'], { is_anonymous: false });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#329</div>
+            <div class="command"><span>JS</span>ctx.poll</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap objek data pembaruan status polling (seperti jumlah total suara masuk atau ketika kuis ditutup).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('poll', (ctx) => { console.log(`Polling ID ${ctx.poll.id} ditutup dengan total suara: ${ctx.poll.total_voter_count}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#330</div>
+            <div class="command"><span>JS</span>ctx.pollAnswer</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menangkap data pilihan spesifik yang diklik/dipilih oleh seorang user secara real-time (hanya bekerja pada non-anonymous poll).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.on('poll_answer', (ctx) => { const opsiId = ctx.pollAnswer.option_ids[0]; console.log(`User ID ${ctx.pollAnswer.user.id} memilih indeks opsi: ${opsiId}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#331</div>
+            <div class="command"><span>JS</span>ctx.telegram.stopPoll(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menutup secara paksa sebuah jajak pendapat atau kuis yang sedang berjalan di dalam chat berdasarkan ID pesan asalnya.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.stopPoll(ctx.chat.id, ctx.message.message_id);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#332</div>
+            <div class="command"><span>JS</span>ctx.telegram.getChatMenuButton(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil status konfigurasi terkini dari tombol menu chat bawaan untuk mendeteksi kesiapan integrasi link Mini App.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getChatMenuButton({ chat_id: ctx.chat.id }).then((res) => { console.log(`Menu aktif saat ini bertipe: ${res.type}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#333</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatMenuButton(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengonfigurasi atau mengubah fungsionalitas tombol menu pojok kiri bawah chat secara spesifik per-user atau per-grup.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setChatMenuButton({ chat_id: ctx.chat.id, menu_button: { type: 'default' } }); // Mengembalikan ke tombol default</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#334</div>
+            <div class="command"><span>JS</span>ctx.telegram.getMyCommands(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil daftar susunan daftar menu shortcut perintah bot (`/`) yang saat ini terdaftar aktif di server Telegram.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getMyCommands().then((cmds) => { console.log(`Bot memiliki ${cmds.length} menu perintah resmi.`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#335</div>
+            <div class="command"><span>JS</span>ctx.telegram.deleteMyCommands(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menghapus seluruh daftar menu menu shortcut perintah bot yang melayang di atas kolom ketik teks secara instan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.deleteMyCommands().then(() => ctx.reply('Daftar perintah bot sukses dibersihkan!'));</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#336</div>
+            <div class="command"><span>JS</span>ctx.telegram.setMyCommands([...])</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mendaftarkan susunan menu shortcut perintah resmi bot agar muncul secara otomatis sebagai saran saat user mengetik simbol garis miring (`/`).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setMyCommands([{ command: 'start', description: 'Mulai Ulang Bot' }, { command: 'store', description: 'Menu Belanja Produk' }]);</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#337</div>
+            <div class="command"><span>JS</span>ctx.telegram.sendChatAction(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menampilkan status indikator aktivitas bot di baris atas obrolan (seperti tulisan "typing...", "sending photo...", atau "uploading video...").<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.sendChatAction(ctx.chat.id, 'typing'); // Membuat bot terlihat seolah sedang mengetik balasan</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#338</div>
+            <div class="command"><span>JS</span>ctx.replyWithAudio(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan file audio (format .MP3 atau .M4A) yang akan otomatis masuk ke tab pemutar musik bawaan Telegram.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithAudio({ source: './media/soundtrack.mp3' }, { performer: 'Winz Project', title: 'Theme Song v2' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#339</div>
+            <div class="command"><span>JS</span>ctx.replyWithVoice(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan file rekaman suara/pesan suara (format .OGG dengan kodek OPUS) agar muncul sebagai widget voice note instan.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithVoice({ source: './media/notif.ogg' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#340</div>
+            <div class="command"><span>JS</span>ctx.replyWithVideoNote(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan pesan video berbentuk lingkaran/bulat (telescope/round video note) berdurasi maksimal 1 menit.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithVideoNote({ source: './media/guide_bulat.mp4' });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#341</div>
+            <div class="command"><span>JS</span>ctx.replyWithMediaGroup([...])</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan kumpulan foto atau video sekaligus dalam bentuk satu album/grid rapi (maksimal 10 media per grup).<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithMediaGroup([{ type: 'photo', media: { source: './p1.png' } }, { type: 'photo', media: { source: './p2.png' } }]);</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#342</div>
+            <div class="command"><span>JS</span>ctx.telegram.getUserProfilePhotos(..., { limit: 1 })</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengambil versi terbaru atau foto profil pertama yang sedang digunakan oleh user untuk ditampilkan di dashboard admin/database.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.getUserProfilePhotos(ctx.from.id, { limit: 1 }).then((res) => { const fileId = res.photos[0][0].file_id; console.log(`ID Foto Profil Aktif: ${fileId}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#343</div>
+            <div class="command"><span>JS</span>ctx.telegram.exportChatInviteLink(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Membuat sebuah link undangan grup baru secara instan sekaligus otomatis menonaktifkan link undangan bawaan grup sebelumnya.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.exportChatInviteLink(ctx.chat.id).then((link) => { console.log(`Link utama grup diperbarui: ${link}`); });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#344</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatStickerSet(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengunci dan menetapkan sebuah sticker pack spesifik agar menjadi kumpulan stiker default yang disarankan di dalam ruang obrolan grup.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.setChatStickerSet(ctx.chat.id, 'WinzPackOfficial');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#345</div>
+            <div class="command"><span>JS</span>ctx.telegram.unpinAllChatMessages(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut API untuk melepas atau menghapus status sematan (unpin) dari seluruh pesan tersemat di grup sekaligus secara massal.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.telegram.unpinAllChatMessages(ctx.chat.id).then(() => ctx.reply('Seluruh pin pesan dibersihkan!'));</code>
+            </div>
+        </div>
+
+            <div class="card">
+            <div class="badge">#346</div>
+            <div class="command"><span>JS</span>ctx.replyWithSticker(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Shortcut context untuk mengirimkan stiker tertentu ke dalam obrolan menggunakan file_id stiker atau URL eksternal.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>ctx.replyWithSticker('CAACAgIAAxkBAAE...'; // Mengirim stiker via file_id unik</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#347</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatTitle(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah nama judul ruang obrolan/grup menggunakan method global telegram tanpa harus bergantung pada pemicu context chat aktif.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.telegram.setChatTitle('-10012345678', 'XTR Market - Unit Baru');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#348</div>
+            <div class="command"><span>JS</span>ctx.telegram.setChatDescription(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Mengubah info deskripsi/biografi profil sebuah grup/channel secara remote lewat baris kode server luar berdasarkan ID chat target.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.telegram.setChatDescription('-10012345678', 'Tempat jual beli akun game aman & tepercaya.');</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#349</div>
+            <div class="command"><span>JS</span>ctx.telegram.pinChatMessage(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Menyematkan (pin) suatu pesan secara global di grup manapun tanpa notifikasi suara berisik ke member dengan mengatur opsi silent.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.telegram.pinChatMessage('-10012345678', 5542, { disable_notification: true });</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">#350</div>
+            <div class="command"><span>JS</span>ctx.telegram.unpinChatMessage(...)</div>
+            <div class="divider"></div>
+            <div class="description">
+                Melepas status sematan (unpin) dari satu pesan tertentu di grup target secara remote berdasarkan ID pesan asalnya.<br><br>
+                <b>Contoh Pakai:</b><br>
+                <code>bot.telegram.unpinChatMessage('-10012345678', 5542);</code>
+            </div>
+        </div>
+        
